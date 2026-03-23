@@ -14,7 +14,7 @@
     {{-- 左：ロゴ --}}
     <div class="header-left">
         <a href="/">
-            <img src="{{ asset('storage/app/public/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH" class="header-logo">
+            <img src="{{ asset('storage/coachtech-logo.png') }}" alt="COACHTECH" class="header-logo">
         </a>
     </div>
 
@@ -68,12 +68,12 @@
 
         {{-- 商品画像 --}}
         <a href="{{ route('products.show', $product->id) }}">
-            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}">
+            <img src="{{ $product->image_path }}" alt="{{ $product->name }}">
         </a>
 
         {{-- 商品名 --}}
         <div class="product-name">
-            {{ $product->title }}
+            {{ $product->name }}
         </div>
 
     </div>

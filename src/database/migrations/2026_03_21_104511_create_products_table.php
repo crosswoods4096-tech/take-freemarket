@@ -16,10 +16,14 @@ class CreateProductsTable extends Migration
                 ->constrained('users')
                 ->onDelete('cascade');
 
-            $table->string('title');
-            $table->text('description')->nullable();
+            // 商品情報
+            $table->string('name');
             $table->integer('price');
-            $table->string('image')->nullable();
+            $table->string('brand')->nullable();
+            $table->text('description');
+            $table->string('image_path');
+            $table->string('condition');
+            $table->unsignedBigInteger('category_id');
 
             // 売却済みフラグ
             $table->boolean('is_sold')->default(false);

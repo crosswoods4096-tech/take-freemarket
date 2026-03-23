@@ -11,13 +11,15 @@ class Product extends Model
 
     protected $fillable = [
         'user_id',
-        'title',
-        'description',
+        'name',
         'price',
-        'image',
+        'brand',
+        'description',
+        'image_path',
+        'condition',
+        'category_id',
         'is_sold',
     ];
-
     /**
      * 出品者
      */
