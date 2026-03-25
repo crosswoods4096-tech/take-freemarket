@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DealController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\CommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,53 +18,56 @@ use App\Http\Controllers\MypageController;
 // ===============================
 
 // 商品一覧（トップページ）
-Route::get('/', [ItemController::class, 'index'])->name('products.index');
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
 // 商品一覧（全件）
-Route::get('/products', [ItemController::class, 'index'])->name('products.index');
-
-// おすすめ
-Route::get('/products/recommend', [ItemController::class, 'recommend'])->name('products.recommend');
-
-// マイリスト
-Route::get('/products/mylist', [ItemController::class, 'mylist'])->name('products.mylist');
-
-// マイリスト（自分の出品一覧）
-Route::get('/mylist', [ItemController::class, 'indexMyList'])->name('products.mylist');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 // 商品詳細
-Route::get('/item/{id}', [ItemController::class, 'show'])->name('products.show');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+
+// おすすめ
+Route::get('/products/recommend', [ProductController::class, 'recommend'])->name('products.recommend');
+
+// マイリスト
+Route::get('/products/mylist', [ProductController::class, 'mylist'])->name('products.mylist');
+
+// マイリスト（自分の出品一覧）
+Route::get('/mylist', [ProductController::class, 'indexMyList'])->name('products.mylist');
 
 // 出品フォーム
-Route::get('/sell', [ItemController::class, 'create'])->name('products.create');
+Route::get('/sell', [ProductController::class, 'create'])->name('products.create');
 
 // 出品登録処理
-Route::post('/sell', [ItemController::class, 'store'])->name('products.store');
+Route::post('/sell', [ProductController::class, 'store'])->name('products.store');
 
 
 // ===============================
 // 購入フロー
 // ===============================
 
+Route::get('/deal/{id}', [DealController::class, 'index'])
+    ->name('deal.index');
+
 // 購入確認画面
-Route::get('/purchase/{id}', [PurchaseController::class, 'showPurchaseForm'])
+Route::get('/deal/{id}', [DealController::class, 'showDealForm'])
     ->middleware('auth')
-    ->name('purchase.show');
+    ->name('deal.show');
 
 // 住所変更画面
-Route::get('/purchase/address/{id}', [PurchaseController::class, 'editAddress'])
+Route::get('/deal/address/{id}', [DealController::class, 'editAddress'])
     ->middleware('auth')
-    ->name('purchase.address.edit');
+    ->name('deal.address.edit');
 
 // 住所更新処理
-Route::post('/purchase/address/{id}', [PurchaseController::class, 'updateAddress'])
+Route::post('/deal/address/{id}', [DealController::class, 'updateAddress'])
     ->middleware('auth')
-    ->name('purchase.address.update');
+    ->name('deal.address.update');
 
 // 購入確定処理
-Route::post('/purchase/complete/{id}', [PurchaseController::class, 'complete'])
+Route::post('/deal/complete/{id}', [DealController::class, 'complete'])
     ->middleware('auth')
-    ->name('purchase.complete');
+    ->name('deal.complete');
 
 
 // ===============================
@@ -83,3 +88,9 @@ Route::get('/mypage/profile', [MypageController::class, 'editProfile'])
 Route::post('/mypage/profile', [MypageController::class, 'updateProfile'])
     ->middleware('auth')
     ->name('mypage.profile.update');
+
+// ===============================
+// コメント機能
+// ===============================
+
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');

@@ -6,14 +6,14 @@ use App\Models\Product;
 use App\Models\Deal;
 use Illuminate\Http\Request;
 
-class PurchaseController extends Controller
+class DealController extends Controller
 {
     /**
      * 購入確認画面
      */
-    public function showPurchaseForm($id)
+    public function showDealForm($id)
     {
-        return view('purchase.confirm');
+        return view('deal.confirm');
     }
 
     /**
@@ -21,7 +21,7 @@ class PurchaseController extends Controller
      */
     public function editAddress($id)
     {
-        return view('purchase.address');
+        return view('deal.address');
     }
 
     /**

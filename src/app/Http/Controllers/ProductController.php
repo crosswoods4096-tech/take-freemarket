@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class ProductController extends Controller
 {
     /**
      * 商品一覧（トップページ）
@@ -44,7 +44,8 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        return view('products.show');
+        $product = Product::findOrFail($id);
+        return view('products.detail', compact('product'));
     }
 
     /**

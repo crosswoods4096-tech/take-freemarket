@@ -24,16 +24,11 @@
             {{-- ブランド名 --}}
             <p class="text-gray-500 text-sm mb-4">{{ $product->brand }}</p>
 
-            {{-- 税込・税抜切替（ラジオボタン） --}}
+            {{-- 商品価格（常に税込み） --}}
             <div class="mb-4">
-                <label class="mr-4">
-                    <input type="radio" name="price_type" value="tax_in" checked>
-                    税込：¥{{ number_format($product->price_tax_in) }}
-                </label>
-                <label>
-                    <input type="radio" name="price_type" value="tax_out">
-                    税抜：¥{{ number_format($product->price_tax_out) }}
-                </label>
+                <span class="fw-bold">価格：</span>
+                <span class="fs-4 text-danger">¥{{ number_format($product->price) }}</span>
+                <span class="text-muted">(税込)</span>
             </div>
 
             {{-- いいね & コメントアイコン --}}
@@ -43,10 +38,7 @@
             </div>
 
             {{-- 購入ボタン（横幅いっぱい） --}}
-            <a href="{{ route('purchase.index', $product->id) }}"
-                class="block w-full bg-black text-white text-center py-3 rounded-lg mb-6">
-                購入画面へ進む
-            </a>
+
 
             {{-- 商品説明 --}}
             <h2 class="text-xl font-semibold mb-2">商品説明</h2>
@@ -55,7 +47,10 @@
             {{-- 商品情報（カテゴリ・状態） --}}
             <h2 class="text-xl font-semibold mb-2">商品の情報</h2>
             <div class="mb-6">
-                <p><span class="font-bold">カテゴリ：</span>{{ $product->category->name }}</p>
+                <p>
+                    <span class="font-bold">カテゴリ：</span>
+                    {{ $product->category ? $product->category->name : '未設定' }}
+                </p>
                 <p><span class="font-bold">状態：</span>{{ $product->condition }}</p>
             </div>
 

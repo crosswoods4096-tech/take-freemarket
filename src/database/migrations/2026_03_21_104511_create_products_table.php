@@ -24,10 +24,6 @@ class CreateProductsTable extends Migration
             $table->string('image_path');
             $table->string('condition');
             $table->unsignedBigInteger('category_id');
-
-            // 売却済みフラグ
-            $table->boolean('is_sold')->default(false);
-
             $table->timestamps();
         });
     }
