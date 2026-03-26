@@ -1,18 +1,20 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/products/index.css') }}">
+@endsection
+
 @section('content')
 <div class="container mx-auto px-4 py-6">
-
-    {{-- 上部ヘッダー（商品一覧と共通） --}}
-    @include('components.header')
 
     <div class="flex mt-8">
 
         {{-- 左半分：商品画像 --}}
-        <div class="w-1/2 pr-6">
-            <img src="{{ asset('storage/' . $product->image_path) }}"
+        <div class="w-1/2 pr-6 flex items-start justify-center min-h-[200px]">
+            <img src="{{ $product->image_path }}"
                 alt="{{ $product->name }}"
-                class="w-full h-auto rounded-lg shadow">
+                style="max-width:200px; height:auto;"
+                class="rounded-lg shadow">
         </div>
 
         {{-- 右半分：商品情報 --}}

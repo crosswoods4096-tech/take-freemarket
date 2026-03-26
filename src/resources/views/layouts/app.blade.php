@@ -12,6 +12,9 @@
 
 <body>
 
+    {{-- ヘッダー --}}
+    @include('components.header')
+
     {{-- コンテンツ --}}
     @yield('content')
 
