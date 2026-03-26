@@ -5,7 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\CommentController;
-
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,3 +94,29 @@ Route::post('/mypage/profile', [MypageController::class, 'updateProfile'])
 // ===============================
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
+// ===============================
+// 会員登録機能
+// ===============================
+
+// 会員登録画面
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+Route::post('/register', [AuthController::class, 'store'])->name('register.post');
+
+
+// ===============================
+// ログイン機能
+// ===============================
+
+// ログイン画面
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+// ログイン処理
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+// ログアウト処理
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

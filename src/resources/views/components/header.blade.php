@@ -1,7 +1,4 @@
 <header>
-    {{-- ===========================
-      ヘッダー
-    =========================== --}}
     <div class="header-bar">
 
         {{-- 左：ロゴ --}}
@@ -15,7 +12,6 @@
         <div class="header-center">
             <form action="{{ route('products.index') }}" method="GET" class="search-form">
                 <input type="text" name="keyword" class="search-input" placeholder="何をお探しですか？">
-                <!-- <button class="search-btn">検索</button> -->
             </form>
         </div>
 
@@ -23,10 +19,17 @@
         <div class="header-right">
 
             @guest
-            <a href="/login">ログイン</a>
-            <a href="/register">マイページ</a>
+            <a href="{{ route('login') }}">ログイン</a>
+            <a href="{{ route('register') }}">会員登録</a>
             @else
-            <a href="/logout">ログアウト</a>
+            {{-- ログアウトは POST で送る --}}
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" class="logout-btn" style="background:none;border:none;color:#fff;cursor:pointer;">
+                    ログアウト
+                </button>
+            </form>
+
             <a href="/mypage">マイページ</a>
             @endguest
 
