@@ -1,11 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.easyapp')
 
 @section('content')
 <div class="container d-flex justify-content-center">
     <div class="w-100" style="max-width: 420px;">
 
         {{-- タイトル --}}
-        <h2 class="text-center mb-4">会員登録</h2>
+        <h2 style="margin-top: 20px; text-align:center; font-weight:bold;">
+            会員登録
+        </h2>
 
         {{-- 入力フォーム --}}
         <form action="{{ route('register.post') }}" method="POST">
@@ -50,7 +52,10 @@
 
             {{-- 会員登録ボタン --}}
             <div class="d-grid mb-3">
-                <button class="btn btn-primary py-2">会員登録</button>
+                <button class="btn px-4"
+                    style="background-color: #dc3545; color: #fff; font-weight: bold;">
+                    登録する
+                </button>
             </div>
 
             {{-- ログイン画面へのリンク --}}
