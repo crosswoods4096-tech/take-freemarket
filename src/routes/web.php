@@ -79,6 +79,8 @@ Route::get('/mypage', [MypageController::class, 'index'])
     ->middleware('auth')
     ->name('mypage.index');
 
+Route::get('/mypage/edit', [MypageController::class, 'editProfile'])->name('mypage.edit');
+
 // プロフィール編集
 Route::get('/mypage/profile', [MypageController::class, 'editProfile'])
     ->middleware('auth')

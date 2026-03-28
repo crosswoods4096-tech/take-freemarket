@@ -14,9 +14,13 @@ class MypageController extends Controller
      */
     public function index(Request $request)
     {
-        // page=buy → 購入履歴
-        // page=sell → 出品履歴
-        return view('mypage.index');
+        $user = auth()->user(); // ← ログイン中のユーザーを取得
+        $tab = $request->tab ?? 'sell'; // ← タブ切り替え用（任意）
+
+        // 出品 or 購入した商品を取得（仮）
+        $products = []; // ← 後で実装
+
+        return view('mypage.index', compact('user', 'tab', 'products'));
     }
 
     /**

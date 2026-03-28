@@ -32,7 +32,7 @@ class AuthController extends Controller
         // 認証を試みる
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate(); // セッション固定攻撃対策
-            return redirect()->route('index'); // ログイン後の遷移先（例）
+            return redirect()->route('products.index'); // ログイン後の遷移先（例）
         }
 
         // 認証失敗時
@@ -41,7 +41,7 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    public function logout(Request $request)
+    public function logout(LoginRequest $request)
     {
         Auth::logout(); // ログアウト
 
