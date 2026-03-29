@@ -25,29 +25,20 @@
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="profile-form">
         @csrf
 
-        <div class="form-group">
-            <label>ユーザー名</label>
-            <input type="text" name="name" class="form-input">
-        </div>
+        <label>ユーザー名</label>
+        <input type="text" name="name" value="{{ $user->name }}">
 
-        <div class="form-group">
-            <label>郵便番号</label>
-            <input type="text" name="postal_code" class="form-input">
-        </div>
+        <label>郵便番号</label>
+        <input type="text" name="postal_code" value="{{ $user->postal_code }}">
 
-        <div class="form-group">
-            <label>住所</label>
-            <input type="text" name="address" class="form-input">
-        </div>
+        <label>住所</label>
+        <input type="text" name="address" value="{{ $user->address }}">
 
-        <div class="form-group">
-            <label>建物名</label>
-            <input type="text" name="building" class="form-input">
-        </div>
+        <label>建物名</label>
+        <input type="text" name="building" value="{{ $user->building }}">
 
-        <button class="update-btn">更新</button>
+        <button type="submit" class="update-btn">更新</button>
     </form>
-
 </div>
 
 @endsection

@@ -28,7 +28,7 @@
             {{-- ログインボタン --}}
             <div class="d-grid mb-3">
                 <button class="btn px-4"
-                    style="background-color: #dc3545; color: #fff; font-weight: bold;">
+                    style="background-color: #ff5555; color: #fff; font-weight: bold;">
                     ログイン
                 </button>
             </div>

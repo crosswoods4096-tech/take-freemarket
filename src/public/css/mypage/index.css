@@ -99,9 +99,10 @@
 /* タブ */
 .tab-menu {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 10px;
+    justify-content: flex-start; /* ← 左寄せの決め手 */
+    gap: 20px; /* タブ同士の間隔 */
+    margin-top: 20px;
+    margin-left: 10px; /* 左に少し余白をつけると綺麗 */
 }
 
 .tab {
@@ -145,4 +146,19 @@
 .product-name {
     margin-top: 8px;
     font-size: 0.9rem;
+}
+.edit-btn {
+    padding: 8px 16px;
+    border: 2px solid #ff5555; /* 赤い枠線 */
+    background-color: #fff; /* 白背景 */
+    color: #ff5555; /* 赤文字 */
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.edit-btn:hover {
+    background-color: #ff5555; /* ホバー時は赤背景 */
+    color: #fff; /* 白文字 */
 }

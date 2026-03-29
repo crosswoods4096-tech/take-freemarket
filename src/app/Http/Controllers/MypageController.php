@@ -23,6 +23,22 @@ class MypageController extends Controller
         return view('mypage.index', compact('user', 'tab', 'products'));
     }
 
+
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+
+        $user->name = $request->name;
+        $user->postal_code = $request->postal_code;
+        $user->address = $request->address;
+        $user->building = $request->building;
+
+        // 画像アップロード処理は後で追加
+
+        $user->save();
+
+        return redirect()->route('mypage.index')->with('success', 'プロフィールを更新しました');
+    }
     /**
      * プロフィール編集画面
      */

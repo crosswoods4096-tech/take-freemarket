@@ -81,6 +81,8 @@ Route::get('/mypage', [MypageController::class, 'index'])
 
 Route::get('/mypage/edit', [MypageController::class, 'editProfile'])->name('mypage.edit');
 
+Route::post('/mypage/update', [MypageController::class, 'update'])->name('profile.update');
+
 // プロフィール編集
 Route::get('/mypage/profile', [MypageController::class, 'editProfile'])
     ->middleware('auth')
