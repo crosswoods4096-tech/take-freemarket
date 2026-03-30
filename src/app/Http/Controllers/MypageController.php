@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Deal;
-use App\Models\Product;
+
 
 class MypageController extends Controller
 {
@@ -44,7 +43,9 @@ class MypageController extends Controller
      */
     public function editProfile()
     {
-        return view('mypage.profile');
+        $user = auth()->user();   // ← ログイン中のユーザーを取得
+
+        return view('mypage.profile', compact('user'));
     }
 
     /**

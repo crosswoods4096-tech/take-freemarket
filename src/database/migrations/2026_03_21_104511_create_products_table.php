@@ -26,6 +26,9 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
         });
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('category_id');
+        });
     }
 
     public function down()

@@ -9,14 +9,19 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        // まずユーザーを1人作成
-        $user = User::create([
-            'name' => 'テストユーザー',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
+        // まずユーザーを1人作成（ProductSeeder が user_id=1 を使うため）
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'テストユーザー',
+                'password' => bcrypt('password'),
+            ]
+        );
 
-        // 次に商品を作成
+        // カテゴリー
+        $this->call(CategorySeeder::class);
+
+        // 商品
         $this->call(ProductSeeder::class);
     }
 }

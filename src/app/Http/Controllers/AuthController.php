@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
@@ -15,13 +16,18 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
 
-        User::create([
+        // ユーザー作成
+        $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('login');
+        // ★ 登録後に自動ログイン
+        Auth::login($user);
+
+        // ★ プロフィール編集画面へ遷移
+        return redirect()->route('mypage.edit');
     }
 
     // ログイン処理
@@ -41,7 +47,7 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    public function logout(LoginRequest $request)
+    public function logout(Request $request)
     {
         Auth::logout(); // ログアウト
 

@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
                 'condition' => '良好',
-                'category_id' => 1,
+                'categories' => [1, 4], // ← 複数カテゴリー
             ],
             [
                 'user_id' => 1,
@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
                 'description' => '高速で信頼性の高いハードディスク',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
                 'condition' => '目立った傷や汚れなし',
-                'category_id' => 1,
+                'categories' => [2], // 家電
             ],
             [
                 'user_id' => 1,
@@ -38,7 +38,7 @@ class ProductSeeder extends Seeder
                 'description' => '新鮮な玉ねぎ3束のセット',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg',
                 'condition' => 'やや傷や汚れあり',
-                'category_id' => 1,
+                'categories' => [14], // ベビー・キッズなど適当に
             ],
             [
                 'user_id' => 1,
@@ -48,7 +48,7 @@ class ProductSeeder extends Seeder
                 'description' => 'クラシックなデザインの革靴',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
                 'condition' => '状態が悪い',
-                'category_id' => 1,
+                'categories' => [1, 5], // ファッション・メンズ
             ],
             [
                 'user_id' => 1,
@@ -58,7 +58,7 @@ class ProductSeeder extends Seeder
                 'description' => '高性能なノートパソコン',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg',
                 'condition' => '良好',
-                'category_id' => 1,
+                'categories' => [2], // 家電
             ],
             [
                 'user_id' => 1,
@@ -68,7 +68,7 @@ class ProductSeeder extends Seeder
                 'description' => '高音質のレコーディング用マイク',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
                 'condition' => '目立った傷や汚れなし',
-                'category_id' => 1,
+                'categories' => [2, 8], // 家電・ゲーム
             ],
             [
                 'user_id' => 1,
@@ -78,7 +78,7 @@ class ProductSeeder extends Seeder
                 'description' => 'おしゃれなショルダーバッグ',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg',
                 'condition' => 'やや傷や汚れあり',
-                'category_id' => 1,
+                'categories' => [1, 4], // ファッション・レディース
             ],
             [
                 'user_id' => 1,
@@ -88,7 +88,7 @@ class ProductSeeder extends Seeder
                 'description' => '使いやすいタンブラー',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg',
                 'condition' => '状態が悪い',
-                'category_id' => 1,
+                'categories' => [10], // キッチン
             ],
             [
                 'user_id' => 1,
@@ -98,7 +98,7 @@ class ProductSeeder extends Seeder
                 'description' => '手動のコーヒーミル',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg',
                 'condition' => '良好',
-                'category_id' => 1,
+                'categories' => [10], // キッチン
             ],
             [
                 'user_id' => 1,
@@ -108,12 +108,25 @@ class ProductSeeder extends Seeder
                 'description' => '便利なメイクアップセット',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
                 'condition' => '目立った傷や汚れなし',
-                'category_id' => 1,
+                'categories' => [6], // コスメ
             ],
         ];
 
-        foreach ($products as $product) {
-            Product::create($product);
+        foreach ($products as $data) {
+
+            // category_id を除いた商品情報を作成
+            $product = Product::create([
+                'user_id' => $data['user_id'],
+                'name' => $data['name'],
+                'price' => $data['price'],
+                'brand' => $data['brand'],
+                'description' => $data['description'],
+                'image_path' => $data['image_path'],
+                'condition' => $data['condition'],
+            ]);
+
+            // 多対多カテゴリーを紐付け
+            $product->categories()->attach($data['categories']);
         }
     }
 }
