@@ -10,7 +10,11 @@
 
     {{-- 上部：プロフィール画像・ユーザー名・編集ボタン --}}
     <div class="profile-top">
-        <img src="{{ asset('storage/default-user.png') }}" class="profile-icon" alt="プロフィール画像">
+        @if ($user->avatar)
+        <img src="{{ asset('storage/' . $user->avatar) }}" class="profile-icon">
+        @else
+        <img src="{{ asset('storage/default-user.png') }}" class="profile-icon">
+        @endif
 
         <div class="profile-info">
             <h2 class="profile-name">{{ $user->name }}</h2>
@@ -21,12 +25,12 @@
 
     {{-- タブ切り替え --}}
     <div class="tab-menu">
-        <a href="{{ route('mypage.index', ['tab' => 'sell']) }}"
+        <a href="{{ route('mypage', ['tab' => 'sell']) }}"
             class="tab {{ $tab === 'sell' ? 'active' : '' }}">
             出品した商品
         </a>
 
-        <a href="{{ route('mypage.index', ['tab' => 'buy']) }}"
+        <a href="{{ route('mypage', ['tab' => 'buy']) }}"
             class="tab {{ $tab === 'buy' ? 'active' : '' }}">
             購入した商品
         </a>

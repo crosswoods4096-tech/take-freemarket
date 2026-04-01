@@ -28,11 +28,14 @@ class MypageController extends Controller
         $user = auth()->user();
 
         $user->name = $request->name;
-        $user->postcord = $request->postal_code;
+        $user->postcord = $request->postcord;
         $user->address = $request->address;
         $user->building = $request->building;
 
-        // 画像アップロード処理は後で追加
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
 
         $user->save();
 

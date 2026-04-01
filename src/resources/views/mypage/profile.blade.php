@@ -12,24 +12,28 @@
     {{-- タイトル --}}
     <h2 class="profile-title">プロフィール設定</h2>
 
-    {{-- プロフィール画像 + ボタン --}}
-    <div class="profile-image-area">
-        <img src="{{ asset('storage/default-user.png') }}" alt="プロフィール画像" class="profile-image">
-        <label class="image-select-btn">
-            画像を選択する
-            <input type="file" name="avatar" class="image-input">
-        </label>
-    </div>
-
-    {{-- 入力フォーム --}}
-    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="profile-form">
+    <form action="{{ route('mypage.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
+
+        {{-- プロフィール画像 + ボタン --}}
+        <div class="profile-image-area">
+            @if ($user->avatar)
+            <img src="{{ asset('storage/' . $user->avatar) }}" alt="プロフィール画像" class="profile-image">
+            @else
+            <img src="{{ asset('storage/default-user.png') }}" alt="プロフィール画像" class="profile-image">
+            @endif
+
+            <label class="image-select-btn">
+                画像を選択する
+                <input type="file" name="avatar" class="image-input">
+            </label>
+        </div>
 
         <label>ユーザー名</label>
         <input type="text" name="name" value="{{ $user->name }}">
 
         <label>郵便番号</label>
-        <input type="text" name="postal_code" value="{{ $user->postal_code }}">
+        <input type="text" name="postcord" value="{{ $user->postcord }}">
 
         <label>住所</label>
         <input type="text" name="address" value="{{ $user->address }}">
