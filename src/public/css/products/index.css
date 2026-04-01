@@ -50,3 +50,62 @@
     font-size: 14px;
     font-weight: 600;
 }
+/* 全体を中央揃え */
+.profile-container {
+    max-width: 500px; /* 横幅を適度に制限 */
+    margin: 0 auto; /* 中央寄せ */
+    text-align: center; /* テキスト中央揃え */
+}
+
+/* プロフィール画像エリア */
+.profile-image-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 中央揃え */
+    margin-bottom: 20px;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* 入力フォーム */
+.profile-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* フォーム内の要素を中央揃え */
+    gap: 12px;
+}
+
+/* ラベル */
+.profile-container label {
+    width: 100%;
+    text-align: left; /* ラベルは左揃えの方が読みやすい */
+    font-weight: bold;
+}
+
+/* 入力欄 */
+.profile-container input[type="text"],
+.profile-container input[type="file"] {
+    width: 100%;
+    max-width: 350px; /* 入力欄の最大幅 */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* 更新ボタン */
+.update-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #ff5555;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
