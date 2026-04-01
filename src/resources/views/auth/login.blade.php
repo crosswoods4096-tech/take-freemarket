@@ -10,19 +10,26 @@
         </h2>
 
         {{-- 入力フォーム --}}
-        <form action="{{ route('login.post') }}" method="POST">
+        <form action="{{ route('login.post') }}" method="POST" novalidate>
             @csrf
 
             {{-- メールアドレス --}}
             <div class="mb-3">
                 <label for="email" class="form-label">メールアドレス</label>
-                <input type="email" name="email" id="email" class="form-control" required>
+                <input type="email" name="email" id="email" class="form-control"
+                    value="{{ old('email') }}">
+                @error('email')
+                <div class="text-danger small">{{ $message }}</div>
+                @enderror
             </div>
 
             {{-- パスワード --}}
             <div class="mb-4">
                 <label for="password" class="form-label">パスワード</label>
-                <input type="password" name="password" id="password" class="form-control" required>
+                <input type="password" name="password" id="password" class="form-control">
+                @error('password')
+                <div class="text-danger small">{{ $message }}</div>
+                @enderror
             </div>
 
             {{-- ログインボタン --}}

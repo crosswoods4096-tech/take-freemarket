@@ -75,13 +75,20 @@ Route::post('/deal/complete/{id}', [DealController::class, 'complete'])
 // ===============================
 
 // マイページトップ（プロフィール・購入履歴・出品履歴）
-Route::get('/mypage', [MypageController::class, 'index'])
-    ->middleware('auth')
-    ->name('mypage.index');
+// Route::get('/mypage', [MypageController::class, 'index'])
+//     ->middleware('auth')
+//     ->name('mypage.index');
+
+// マイページ（トップ）
+Route::get('/mypage', [App\Http\Controllers\MypageController::class, 'index'])
+    ->name('mypage')
+    ->middleware('auth');
 
 Route::get('/mypage/edit', [MypageController::class, 'editProfile'])->name('mypage.edit');
 
-Route::post('/mypage/update', [MypageController::class, 'update'])->name('profile.update');
+Route::post('/mypage/update', [App\Http\Controllers\MypageController::class, 'update'])
+    ->name('mypage.update')
+    ->middleware('auth');
 
 // プロフィール編集
 Route::get('/mypage/profile', [MypageController::class, 'editProfile'])

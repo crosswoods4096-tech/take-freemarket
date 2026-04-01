@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     {{-- CSS 読み込み --}}
+    <link rel="stylesheet" href="{{ asset('css/products/header.css') }}">
     @yield('css')
 </head>
 

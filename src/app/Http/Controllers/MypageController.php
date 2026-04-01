@@ -28,7 +28,7 @@ class MypageController extends Controller
         $user = auth()->user();
 
         $user->name = $request->name;
-        $user->postal_code = $request->postal_code;
+        $user->postcord = $request->postal_code;
         $user->address = $request->address;
         $user->building = $request->building;
 
@@ -36,7 +36,7 @@ class MypageController extends Controller
 
         $user->save();
 
-        return redirect()->route('mypage.index')->with('success', 'プロフィールを更新しました');
+        return redirect()->route('mypage')->with('success', 'プロフィールを更新しました');
     }
     /**
      * プロフィール編集画面
