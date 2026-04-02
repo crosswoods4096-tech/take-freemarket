@@ -11,10 +11,11 @@ class ProductController extends Controller
     /**
      * 商品一覧（トップページ）
      */
-    public function index(Request $request)
+    public function index()
     {
-        // 商品一覧を取得（例：新着順）
-        $products = Product::orderBy('created_at', 'desc')->get();
+        $products = Product::where('user_id', '!=', auth()->id())
+            ->latest()
+            ->get();
 
         return view('products.index', compact('products'));
     }
@@ -58,6 +59,48 @@ class ProductController extends Controller
         return view('products.create', compact('categories'));
     }
 
+    public function store(Request $request)
+    {
+        // ① バリデーション
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'price'       => 'required|integer|min:1',
+            'description' => 'required|string',
+            'image'       => 'required|image|max:2048',
+            'condition' => 'required|string',
+            'brand'     => 'nullable|string|max:255',
+            'categories'  => 'array',   // 多対多
+            'seasons'     => 'array',   // 多対多
+        ]);
+
+        // ② 画像アップロード
+        $path = $request->file('image')->store('products', 'public');
+
+        // ③ 商品を作成（user_id を紐付け）
+        $product = Product::create([
+            'user_id'     => auth()->id(),
+            'name'        => $validated['name'],
+            'price'       => $validated['price'],
+            'description' => $validated['description'],
+            'image_path'       => $path,
+            'condition' => $validated['condition'],
+            'brand'     => $validated['brand'] ?? null,
+        ]);
+
+        // ④ カテゴリ（多対多）
+        if ($request->has('categories')) {
+            $product->categories()->sync($validated['categories']);
+        }
+
+        // ⑤ シーズン（多対多）
+        if ($request->has('seasons')) {
+            $product->seasons()->sync($validated['seasons']);
+        }
+
+        // ⑥ 完了後リダイレクト
+        return redirect()->route('products.index')
+            ->with('success', '商品を出品しました');
+    }
     /**
      * 出品登録処理
      */

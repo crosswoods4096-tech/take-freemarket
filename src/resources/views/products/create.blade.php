@@ -10,14 +10,15 @@
 
     <h1 class="title">商品の出品</h1>
 
-    {{-- 商品画像 --}}
-    <div class="image-upload">
-        <label class="image-label">商品画像</label>
-        <input type="file" name="image" class="image-input">
-    </div>
-
     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="sell-form">
         @csrf
+
+        {{-- 商品画像 --}}
+        <div class="image-upload">
+            <label class="image-label">商品画像</label>
+            <input type="file" name="image" class="image-input" required>
+        </div>
+
         {{-- カテゴリー --}}
         <select name="categories[]" multiple class="form-select">
             @foreach ($categories as $category)
@@ -39,7 +40,7 @@
         {{-- 商品名 --}}
         <div class="form-group">
             <label class="form-label">商品名</label>
-            <input type="text" name="name" class="form-input">
+            <input type="text" name="name" class="form-input" required>
         </div>
 
         {{-- ブランド名 --}}
@@ -51,13 +52,13 @@
         {{-- 商品説明 --}}
         <div class="form-group">
             <label class="form-label">商品の説明</label>
-            <textarea name="description" class="form-textarea"></textarea>
+            <textarea name="description" class="form-textarea" required></textarea>
         </div>
 
         {{-- 販売価格 --}}
         <div class="form-group">
             <label class="form-label">販売価格</label>
-            <input type="number" name="price" class="form-input">
+            <input type="number" name="price" class="form-input" required>
         </div>
 
         {{-- 出品ボタン --}}

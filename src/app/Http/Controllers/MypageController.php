@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Product;
 
 class MypageController extends Controller
 {
@@ -13,13 +13,18 @@ class MypageController extends Controller
      */
     public function index(Request $request)
     {
-        $user = auth()->user(); // ← ログイン中のユーザーを取得
-        $tab = $request->tab ?? 'sell'; // ← タブ切り替え用（任意）
+        $user = auth()->user();   // ← これが必須
+        $tab = $request->tab ?? 'sell';
 
-        // 出品 or 購入した商品を取得（仮）
-        $products = []; // ← 後で実装
+        // 出品した商品
+        if ($tab === 'sell') {
+            $products = Product::where('user_id', $user->id)->get();
+        } else {
+            // 購入した商品（仮）
+            $products = [];
+        }
 
-        return view('mypage.index', compact('user', 'tab', 'products'));
+        return view('mypage.index', compact('user', 'products', 'tab'));
     }
 
 
