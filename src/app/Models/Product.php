@@ -46,4 +46,14 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+    public function getImageUrlAttribute()
+    {
+        // すでにフルURL（S3など）ならそのまま返す
+        if (str_starts_with($this->image_path, 'http')) {
+            return $this->image_path;
+        }
+
+        // ローカル保存の場合は storage パスを付ける
+        return asset('storage/' . $this->image_path);
+    }
 }

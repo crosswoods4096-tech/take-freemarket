@@ -11,7 +11,7 @@
 
         {{-- 左半分：商品画像 --}}
         <div class="w-1/2 pr-6 flex items-start justify-center min-h-[200px]">
-            <img src="{{ $product->image_path }}"
+            <img src="{{ $product->image_url }}"
                 alt="{{ $product->name }}"
                 style="max-width:200px; height:auto;"
                 class="rounded-lg shadow">

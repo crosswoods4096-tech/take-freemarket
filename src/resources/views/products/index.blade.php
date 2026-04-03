@@ -32,7 +32,7 @@
 
         {{-- 商品画像 --}}
         <a href="{{ route('products.show', $product->id) }}">
-            <img src="{{ $product->image_path }}" alt="{{ $product->name }}">
+            <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-auto">
         </a>
 
         {{-- 商品名 --}}
