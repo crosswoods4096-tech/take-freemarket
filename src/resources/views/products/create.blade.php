@@ -14,10 +14,18 @@
         @csrf
 
         {{-- 商品画像 --}}
-        <div class="image-upload">
-            <label class="image-label">商品画像</label>
-            <input type="file" name="image" class="image-input" required>
+        <div class="form-group mb-4">
+            <label class="form-label">商品画像</label>
+
+            <div class="image-box">
+                <label for="image" class="custom-file-btn">
+                    画像を選択
+                </label>
+                <input type="file" id="image" name="image" class="hidden">
+            </div>
         </div>
+
+        <h2 class="section-title">商品の詳細</h2>
 
         {{-- カテゴリ --}}
         <div class="form-group mb-4">
@@ -47,6 +55,8 @@
                 <option value="状態が悪い">状態が悪い</option>
             </select>
         </div>
+
+        <h2 class="section-title">商品名と説明</h2>
 
         {{-- 商品名 --}}
         <div class="form-group">
