@@ -19,12 +19,23 @@
             <input type="file" name="image" class="image-input" required>
         </div>
 
-        {{-- カテゴリー --}}
-        <select name="categories[]" multiple class="form-select">
-            @foreach ($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-        </select>
+        {{-- カテゴリ --}}
+        <div class="form-group mb-4">
+            <label class="form-label">カテゴリ</label>
+
+            <div class="flex flex-wrap gap-2">
+                @foreach ($categories as $category)
+                <button type="button"
+                    class="category-toggle-btn"
+                    data-id="{{ $category->id }}">
+                    {{ $category->name }}
+                </button>
+                @endforeach
+            </div>
+
+            {{-- 選択されたカテゴリIDを格納する hidden --}}
+            <input type="hidden" name="categories" id="selectedCategories">
+        </div>
 
         {{-- 商品の状態 --}}
         <div class="form-group">
@@ -58,13 +69,36 @@
         {{-- 販売価格 --}}
         <div class="form-group">
             <label class="form-label">販売価格</label>
-            <input type="number" name="price" class="form-input" required>
+
+            <div class="flex items-center border rounded px-2">
+                <span class="text-gray-600 mr-1">¥</span>
+                <input type="number" name="price" class="form-input border-0 focus:ring-0" required>
+            </div>
         </div>
 
         {{-- 出品ボタン --}}
         <button type="submit" class="submit-btn">出品する</button>
 
     </form>
+</div> {{-- フォームの最後 --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.category-toggle-btn');
+        const hiddenInput = document.getElementById('selectedCategories');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+
+                const selected = [...document.querySelectorAll('.category-toggle-btn.active')]
+                    .map(b => b.dataset.id);
+
+                hiddenInput.value = selected.join(',');
+            });
+        });
+    });
+</script>
 
 </div>
 
