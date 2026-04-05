@@ -33,7 +33,7 @@ class MypageController extends Controller
         $user = auth()->user();
 
         $user->name = $request->name;
-        $user->postcord = $request->postcord;
+        $user->postcode = $request->postcode;
         $user->address = $request->address;
         $user->building = $request->building;
 

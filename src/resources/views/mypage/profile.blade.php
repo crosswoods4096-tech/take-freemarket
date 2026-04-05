@@ -33,7 +33,7 @@
         <input type="text" name="name" value="{{ $user->name }}">
 
         <label>郵便番号</label>
-        <input type="text" name="postcord" value="{{ $user->postcord }}">
+        <input type="text" name="postcode" value="{{ $user->postcode }}">
 
         <label>住所</label>
         <input type="text" name="address" value="{{ $user->address }}">

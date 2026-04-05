@@ -1,9 +1,122 @@
-/* 商品購入画面専用 */
-
-select {
-    background-color: #fff;
+/* ================================
+   商品画像（左側）
+================================ */
+.buy-image {
+    width: 260px !important;
+    height: 260px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    display: block !important;
 }
 
-hr {
-    border-color: #d1d5db; /* gray-300 */
+/* ================================
+   左側のテキスト（商品名・価格）
+================================ */
+.buy-title {
+    font-size: 22px !important;
+    font-weight: bold !important;
+}
+
+.buy-price {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    color: #333 !important; /* Tailwind の text-gray を上書き */
+    margin-top: 8px !important;
+}
+
+/* ================================
+   支払方法セレクトボックス
+================================ */
+.buy-select {
+    width: 240px !important;
+    padding: 8px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+}
+
+/* ================================
+   右側カード（商品代金・支払方法）
+================================ */
+.buy-card {
+    background-color: #fff !important;
+    border: 1px solid #ddd !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+}
+
+.buy-card-title {
+    font-size: 13px !important;
+    color: #666 !important;
+}
+
+.buy-card-value {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    margin-top: 4px !important;
+}
+
+/* ================================
+   購入ボタン
+================================ */
+.buy-button {
+    width: 100% !important;
+    background-color: #ff5555 !important;
+    color: #fff !important;
+    padding: 14px !important;
+    border-radius: 8px !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    transition: background-color 0.2s ease !important;
+    display: block !important;
+}
+
+.buy-button:hover {
+    background-color: #ff5555 !important;
+}
+
+/* ================================
+   配送先テキスト
+================================ */
+.buy-address p {
+    font-size: 15px !important;
+    color: #444 !important;
+    line-height: 1.6 !important;
+}
+
+/* ================================
+   レイアウト調整（必要に応じて）
+================================ */
+
+.buy-container {
+    display: grid !important;
+    grid-template-columns: 2fr 1fr !important;
+    gap: 32px !important;
+}
+/* カード内の横並びレイアウト */
+.buy-card {
+    background-color: #fff !important;
+    border: 1px solid #ddd !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+/* 左側タイトル */
+.buy-card-title {
+    font-size: 14px !important;
+    color: #666 !important;
+}
+
+/* 右側の値 */
+.buy-card-value {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    color: #333 !important;
 }
