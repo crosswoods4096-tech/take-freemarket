@@ -1,0 +1,9 @@
+/* 商品購入画面専用 */
+
+select {
+    background-color: #fff;
+}
+
+hr {
+    border-color: #d1d5db; /* gray-300 */
+}

@@ -6,6 +6,7 @@ use App\Http\Controllers\DealController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,17 +44,16 @@ Route::post('/sell', [ProductController::class, 'store'])->name('products.store'
 
 
 // ===============================
-// 購入フロー
+// Deal 購入フロー（完了画面なし）
 // ===============================
 
+// 購入確認画面
 Route::get('/deal/{id}', [DealController::class, 'index'])
     ->name('deal.index');
 
-// 購入確認画面
-Route::get('/deal/{id}', [DealController::class, 'showDealForm'])
-    ->middleware('auth')
-    ->name('deal.show');
-
+// 購入処理
+Route::post('/deal', [DealController::class, 'store'])
+    ->name('deal.store');
 // 住所変更画面
 Route::get('/deal/address/{id}', [DealController::class, 'editAddress'])
     ->middleware('auth')

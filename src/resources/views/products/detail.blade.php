@@ -1,45 +1,43 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/products/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/products/detail.css') }}">
 @endsection
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
 
-    <div class="flex mt-8">
+    <div class="detail-container mt-8">
 
         {{-- 左半分：商品画像 --}}
-        <div class="w-1/2 pr-6 flex items-start justify-center min-h-[200px]">
+        <div class="detail-left">
             <img src="{{ $product->image_url }}"
                 alt="{{ $product->name }}"
-                style="max-width:200px; height:auto;"
-                class="rounded-lg shadow">
+                class="detail-image shadow">
         </div>
 
         {{-- 右半分：商品情報 --}}
-        <div class="w-1/2 pl-6">
+        <div class="detail-right">
 
-            {{-- 商品名 --}}
             <h1 class="text-3xl font-bold mb-2">{{ $product->name }}</h1>
 
-            {{-- ブランド名 --}}
             <p class="text-gray-500 text-sm mb-4">{{ $product->brand }}</p>
 
-            {{-- 商品価格（常に税込み） --}}
             <div class="mb-4">
                 <span class="fw-bold">価格：</span>
-                <span class="fs-4 text-danger">¥{{ number_format($product->price) }}</span>
+                <span class="fs-4 text-black">
+                    ¥{{ number_format($product->price) }}
+                </span>
                 <span class="text-muted">(税込)</span>
             </div>
 
-            {{-- いいね & コメントアイコン --}}
-            <div class="flex items-center mb-6">
-                <button class="mr-4 text-red-500 text-2xl">❤️</button>
-                <button class="text-blue-500 text-2xl">💬</button>
-            </div>
+            @if(!$product->is_sold)
+            <a href="{{ route('deal.index', $product->id) }}"
+                class="detail-buy-button">
+                購入手続きへ
+            </a>
+            @endif
 
-            {{-- 購入ボタン（横幅いっぱい） --}}
 
 
             {{-- 商品説明 --}}
@@ -75,7 +73,7 @@
                 <textarea name="content" rows="3"
                     class="w-full border rounded-lg p-2 mb-3"
                     placeholder="コメントを入力してください"></textarea>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                <button class="comment-submit-button">
                     コメントを投稿する
                 </button>
             </form>

@@ -117,7 +117,25 @@
     color: #000;
     font-weight: bold;
 }
+.mypage-tabs {
+    border-bottom: 2px solid #000; /* 黒い下線 */
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+/* タブの基本デザイン */
+.mypage-tab {
+    color: #000; /* 通常は黒 */
+    text-decoration: none;
+    font-weight: normal;
+    padding-bottom: 6px;
+}
 
+/* 選択中のタブ */
+.mypage-tab.active {
+    color: #ff5555; /* 赤字 */
+    font-weight: bold;
+    border-bottom: none;
+}
 /* 横線 */
 .divider {
     border: none;
@@ -126,6 +144,13 @@
 }
 
 /* 商品一覧 */
+.mypage-product-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0 auto;
+}
 .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));

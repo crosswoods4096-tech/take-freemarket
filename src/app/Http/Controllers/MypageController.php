@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Deal;
 
 class MypageController extends Controller
 {
@@ -13,18 +14,17 @@ class MypageController extends Controller
      */
     public function index(Request $request)
     {
-        $user = auth()->user();   // ← これが必須
-        $tab = $request->tab ?? 'sell';
+        $user = auth()->user();
 
-        // 出品した商品
-        if ($tab === 'sell') {
-            $products = Product::where('user_id', $user->id)->get();
-        } else {
-            // 購入した商品（仮）
-            $products = [];
-        }
+        $tab = $request->tab ?? 'listed'; // デフォルトは出品した商品
 
-        return view('mypage.index', compact('user', 'products', 'tab'));
+        $listedProducts = Product::where('user_id', $user->id)->get();
+
+        $purchasedProducts = Deal::where('buyer_id', $user->id)
+            ->with('product')
+            ->get();
+
+        return view('mypage.index', compact('user', 'listedProducts', 'purchasedProducts', 'tab'));
     }
 
 

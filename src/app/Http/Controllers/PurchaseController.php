@@ -6,27 +6,31 @@ use App\Models\Product;
 use App\Models\Deal;
 use Illuminate\Http\Request;
 
-class DealController extends Controller
+class PurchaseController extends Controller
 {
-    // 購入確認画面
+    /**
+     * 購入確認画面
+     */
     public function index($id)
     {
         $product = Product::findOrFail($id);
-        $user = auth()->user();
 
-        return view('deals.buy', compact('product', 'user'));
+        return view('purchase.index', compact('product'));
     }
-    // 購入処理（完了画面なし）
+
+    /**
+     * 購入処理
+     */
     public function store(Request $request)
     {
         $product = Product::findOrFail($request->product_id);
 
-        // 売り切れチェック
+        // すでに売り切れなら弾く
         if ($product->is_sold) {
-            return back()->with('error', 'この商品はすでに売り切れています。');
+            return redirect()->back()->with('error', 'この商品はすでに売り切れています。');
         }
 
-        // 取引レコード作成
+        // deals テーブルにレコード作成
         Deal::create([
             'buyer_id' => auth()->id(),
             'seller_id' => $product->user_id,
@@ -36,8 +40,14 @@ class DealController extends Controller
         // 商品を売り切れに更新
         $product->update(['is_sold' => true]);
 
-        // 完了画面なし → 商品一覧へ戻す
-        return redirect()->route('products.recommend')
-            ->with('success', '購入が完了しました。');
+        return redirect()->route('purchase.complete');
+    }
+
+    /**
+     * 購入完了画面
+     */
+    public function complete()
+    {
+        return view('purchase.complete');
     }
 }

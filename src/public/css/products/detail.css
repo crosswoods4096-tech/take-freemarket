@@ -1,0 +1,98 @@
+/* 商品詳細ページ専用 CSS */
+
+/* 商品画像 */
+.product-image {
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* 商品名 */
+.product-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* 価格 */
+.product-price {
+    font-size: 24px;
+    color: #000;
+    font-weight: bold;
+}
+
+/* 購入ボタン */
+.buy-button {
+    background-color: #000;
+    color: #fff;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+}
+/* 商品詳細ページレイアウト調整 */
+
+/* 左右2カラムを安定させる */
+.detail-container {
+    display: flex;
+    gap: 24px;
+}
+
+/* 左側（画像） */
+.detail-left {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* 商品画像 */
+.detail-image {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* 右側（商品情報） */
+.detail-right {
+    width: 50%;
+}
+
+/* 購入ボタン */
+.detail-buy-button {
+    background-color: #ff5555;
+    color: #fff;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+    display: block;
+    margin-top: 24px;
+}
+
+/* スマホ対応（縦並び） */
+@media (max-width: 768px) {
+    .detail-container {
+        flex-direction: column;
+    }
+    .detail-left,
+    .detail-right {
+        width: 100%;
+    }
+}
+/* コメント投稿ボタン（商品詳細ページ） */
+.comment-submit-button {
+    background-color: #ff5555;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.comment-submit-button:hover {
+    background-color: #e04444; /* 少し濃い赤 */
+}
