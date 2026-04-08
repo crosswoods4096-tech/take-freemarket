@@ -5,17 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
     /**
      * 商品一覧（トップページ）
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('user_id', '!=', auth()->id())
-            ->latest()
-            ->get();
+        $query = Product::where('user_id', '!=', auth()->id());
+
+        // 🔍 商品名検索
+        if ($request->filled('keyword')) {
+            $keyword = $request->keyword;
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+
+        $products = $query->latest()->get();
 
         return view('products.index', compact('products'));
     }
@@ -59,48 +66,33 @@ class ProductController extends Controller
         return view('products.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        // ① バリデーション
-        $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'price'       => 'required|integer|min:1',
-            'description' => 'required|string',
-            'image'       => 'required|image|max:2048',
-            'condition' => 'required|string',
-            'brand'     => 'nullable|string|max:255',
-            'categories'  => 'array',   // 多対多
-            'seasons'     => 'array',   // 多対多
-        ]);
+        $validated = $request->validated();
 
-        // ② 画像アップロード
+        // カテゴリを配列に変換
+        $categoryIds = explode(',', $validated['categories']);
+
+        // 画像保存
         $path = $request->file('image')->store('products', 'public');
 
-        // ③ 商品を作成（user_id を紐付け）
+        // 商品保存
         $product = Product::create([
-            'user_id'     => auth()->id(),
-            'name'        => $validated['name'],
-            'price'       => $validated['price'],
+            'name' => $validated['name'],
+            'brand' => $validated['brand'],
             'description' => $validated['description'],
-            'image_path'       => $path,
+            'price' => $validated['price'],
             'condition' => $validated['condition'],
-            'brand'     => $validated['brand'] ?? null,
+            'image_path' => $path,
+            'user_id' => auth()->id(),
         ]);
 
-        // ④ カテゴリ（多対多）
-        if ($request->has('categories')) {
-            $product->categories()->sync($validated['categories']);
-        }
+        // 中間テーブルにカテゴリを保存（多対多の場合）
+        $product->categories()->sync($categoryIds);
 
-        // ⑤ シーズン（多対多）
-        if ($request->has('seasons')) {
-            $product->seasons()->sync($validated['seasons']);
-        }
-
-        // ⑥ 完了後リダイレクト
-        return redirect()->route('products.index')
-            ->with('success', '商品を出品しました');
+        return redirect()->route('products.index');
     }
+
     /**
      * 出品登録処理
      */

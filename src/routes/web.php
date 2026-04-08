@@ -37,10 +37,14 @@ Route::get('/products/mylist', [ProductController::class, 'mylist'])->name('prod
 Route::get('/mylist', [ProductController::class, 'indexMyList'])->name('products.mylist');
 
 // 出品フォーム
-Route::get('/sell', [ProductController::class, 'create'])->name('products.create');
+Route::get('/sell', [ProductController::class, 'create'])
+    ->middleware('auth')
+    ->name('products.create');
 
 // 出品登録処理
-Route::post('/sell', [ProductController::class, 'store'])->name('products.store');
+Route::post('/sell', [ProductController::class, 'store'])
+    ->middleware('auth')
+    ->name('products.store');
 
 
 // ===============================
@@ -49,6 +53,7 @@ Route::post('/sell', [ProductController::class, 'store'])->name('products.store'
 
 // 購入確認画面
 Route::get('/deal/{id}', [DealController::class, 'index'])
+    ->middleware('auth')
     ->name('deal.index');
 
 // 購入処理

@@ -44,5 +44,24 @@
         <button type="submit" class="update-btn">更新</button>
     </form>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const avatarInput = document.querySelector('.image-input');
+        const avatarPreview = document.querySelector('.profile-image');
+
+        avatarInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                avatarPreview.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+    });
+</script>
 
 @endsection

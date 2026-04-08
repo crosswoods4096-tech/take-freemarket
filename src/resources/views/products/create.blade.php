@@ -10,7 +10,11 @@
 
     <h1 class="title">商品の出品</h1>
 
-    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="sell-form">
+    <form action="{{ route('products.store') }}"
+        method="POST"
+        enctype="multipart/form-data"
+        class="sell-form"
+        novalidate>
         @csrf
 
         {{-- 商品画像 --}}
@@ -21,7 +25,13 @@
                 <label for="image" class="custom-file-btn">
                     画像を選択
                 </label>
-                <input type="file" id="image" name="image" class="hidden">
+                <input type="file" id="image" name="image" class="file-input">
+
+                {{-- プレビュー表示 --}}
+                <img id="preview" class="preview-image" style="display:none; margin-top:10px; max-width:200px; border-radius:8px;">
+                @error('image')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
@@ -34,7 +44,7 @@
             <div class="flex flex-wrap gap-2">
                 @foreach ($categories as $category)
                 <button type="button"
-                    class="category-toggle-btn"
+                    class="category-toggle-btn {{ in_array($category->id, explode(',', old('categories', ''))) ? 'active' : '' }}"
                     data-id="{{ $category->id }}">
                     {{ $category->name }}
                 </button>
@@ -42,7 +52,12 @@
             </div>
 
             {{-- 選択されたカテゴリIDを格納する hidden --}}
-            <input type="hidden" name="categories" id="selectedCategories">
+            <input type="hidden" name="categories" id="selectedCategories" value="{{ old('categories') }}">
+
+            {{-- ▼ ここを追加 --}}
+            @error('categories')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         {{-- 商品の状態 --}}
@@ -61,19 +76,28 @@
         {{-- 商品名 --}}
         <div class="form-group">
             <label class="form-label">商品名</label>
-            <input type="text" name="name" class="form-input" required>
+            <input type="text" name="name" class="form-input" value="{{ old('name') }}">
+            @error('name')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         {{-- ブランド名 --}}
         <div class="form-group">
             <label class="form-label">ブランド名</label>
             <input type="text" name="brand" class="form-input">
+            @error('brand')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         {{-- 商品説明 --}}
         <div class="form-group">
             <label class="form-label">商品の説明</label>
-            <textarea name="description" class="form-textarea" required></textarea>
+            <textarea name="description" class="form-textarea">{{ old('description') }}</textarea>
+            @error('description')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         {{-- 販売価格 --}}
@@ -82,7 +106,10 @@
 
             <div class="flex items-center border rounded px-2">
                 <span class="text-gray-600 mr-1">¥</span>
-                <input type="number" name="price" class="form-input border-0 focus:ring-0" required>
+                <input type="text" name="price" class="form-input" inputmode="numeric" pattern="[0-9]*" value="{{ old('price') }}">
+                @error('price')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
@@ -90,26 +117,49 @@
         <button type="submit" class="submit-btn">出品する</button>
 
     </form>
-</div> {{-- フォームの最後 --}}
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const buttons = document.querySelectorAll('.category-toggle-btn');
-        const hiddenInput = document.getElementById('selectedCategories');
 
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.classList.toggle('active');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-                const selected = [...document.querySelectorAll('.category-toggle-btn.active')]
-                    .map(b => b.dataset.id);
+            // ▼ カテゴリ選択の JS
+            const buttons = document.querySelectorAll('.category-toggle-btn');
+            const hiddenInput = document.getElementById('selectedCategories');
 
-                hiddenInput.value = selected.join(',');
+            const oldSelected = hiddenInput.value ? hiddenInput.value.split(',') : [];
+
+            buttons.forEach(btn => {
+                if (oldSelected.includes(btn.dataset.id)) {
+                    btn.classList.add('active');
+                }
+
+                btn.addEventListener('click', () => {
+                    btn.classList.toggle('active');
+
+                    const selected = [...document.querySelectorAll('.category-toggle-btn.active')]
+                        .map(b => b.dataset.id);
+
+                    hiddenInput.value = selected.join(',');
+                });
             });
+
+            // ▼ 画像プレビューの JS
+            const imageInput = document.getElementById('image');
+            const preview = document.getElementById('preview');
+
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            });
+
         });
-    });
-</script>
+    </script>
 
-</div>
-
-@endsection
+    @endsection
