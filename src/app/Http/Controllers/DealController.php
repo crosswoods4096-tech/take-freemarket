@@ -21,20 +21,19 @@ class DealController extends Controller
     {
         $product = Product::findOrFail($request->product_id);
 
-        // 売り切れチェック
-        if ($product->is_sold) {
-            return back()->with('error', 'この商品はすでに売り切れています。');
+        // すでに購入されているかチェック
+        if ($product->deal) {
+            return back()->with('error', 'この商品はすでに購入されています。');
         }
+
 
         // 取引レコード作成
         Deal::create([
             'buyer_id' => auth()->id(),
-            'seller_id' => $product->user_id,
             'product_id' => $product->id,
         ]);
 
-        // 商品を売り切れに更新
-        $product->update(['is_sold' => true]);
+
 
         // 完了画面なし → 商品一覧へ戻す
         return redirect()->route('products.recommend')

@@ -22,7 +22,9 @@ class ProductController extends Controller
             $query->where('name', 'like', '%' . $keyword . '%');
         }
 
-        $products = $query->latest()->get();
+        $products = Product::doesntHave('deal')
+            ->latest()
+            ->get();
 
         return view('products.index', compact('products'));
     }

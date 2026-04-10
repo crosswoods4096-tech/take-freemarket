@@ -35,8 +35,9 @@ class Product extends Model
      */
     public function deal()
     {
-        return $this->hasOne(Deal::class, 'product_id');
+        return $this->hasOne(Deal::class);
     }
+
 
     public function comments()
     {

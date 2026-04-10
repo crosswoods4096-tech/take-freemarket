@@ -11,10 +11,7 @@ class Deal extends Model
 
     protected $fillable = [
         'product_id',
-        'seller_id',
         'buyer_id',
-        'price',
-        'status',
     ];
 
     /**
@@ -31,13 +28,5 @@ class Deal extends Model
     public function buyer()
     {
         return $this->belongsTo(User::class, 'buyer_id');
-    }
-
-    /**
-     * 出品者
-     */
-    public function seller()
-    {
-        return $this->belongsTo(User::class, 'seller_id');
     }
 }

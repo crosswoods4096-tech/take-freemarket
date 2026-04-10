@@ -187,3 +187,9 @@
     background-color: #ff5555; /* ホバー時は赤背景 */
     color: #fff; /* 白文字 */
 }
+.mypage-purchased-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}

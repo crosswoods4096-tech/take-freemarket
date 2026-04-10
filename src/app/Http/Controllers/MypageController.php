@@ -67,9 +67,14 @@ class MypageController extends Controller
     /**
      * 購入した商品一覧（分ける場合）
      */
-    public function purchasedItems()
+    public function purchased()
     {
-        return view('mypage.purchased');
+        $deals = Deal::where('buyer_id', auth()->id())
+            ->with('product')
+            ->latest()
+            ->get();
+
+        return view('mypage.purchased', compact('deals'));
     }
 
     /**

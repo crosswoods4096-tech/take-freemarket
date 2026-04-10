@@ -57,8 +57,7 @@ Route::get('/deal/{id}', [DealController::class, 'index'])
     ->name('deal.index');
 
 // 購入処理
-Route::post('/deal', [DealController::class, 'store'])
-    ->name('deal.store');
+Route::post('/deal', [DealController::class, 'store'])->name('deal.store');
 // 住所変更画面
 Route::get('/deal/address/{id}', [DealController::class, 'editAddress'])
     ->middleware('auth')

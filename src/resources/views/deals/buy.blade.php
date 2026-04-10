@@ -5,9 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container mx-auto px-6 py-8 buy-container">
-
-
+<div class="container mx-auto px-6 py-8 buy-container grid grid-cols-3 gap-8">
 
     <!-- 左側（2/3） -->
     <div class="col-span-2">
@@ -28,7 +26,6 @@
 
         </div>
 
-        <!-- 下線 -->
         <hr class="my-6 border-gray-300">
 
         <!-- 支払方法 -->
@@ -39,13 +36,14 @@
             <option value="カード支払い">カード支払い</option>
         </select>
 
-        <!-- 下線 -->
         <hr class="my-6 border-gray-300">
 
         <!-- 配送先 -->
         <div class="flex justify-between items-center mb-3">
             <h2 class="text-lg font-bold">配送先</h2>
-            <a href="#" class="text-blue-600 underline">変更する</a>
+            <a href="{{ route('mypage.profile.edit') }}" class="text-blue-600 underline">
+                変更する
+            </a>
         </div>
 
         <div class="text-gray-700 leading-relaxed">
@@ -79,21 +77,16 @@
         <form action="{{ route('deal.store') }}" method="POST">
             @csrf
 
-            <!-- 支払方法を hidden で送る（JSで更新） -->
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
             <input type="hidden" name="payment" id="paymentInput" value="コンビニ払い">
 
-            <button class="buy-button">
-                購入する
-            </button>
+            <button class="buy-button">購入する</button>
         </form>
 
     </div>
 
 </div>
 
-</div>
-
-<!-- ▼ JavaScript ▼ -->
 <script>
     const paymentSelect = document.getElementById('paymentSelect');
     const paymentDisplay = document.getElementById('paymentDisplay');
