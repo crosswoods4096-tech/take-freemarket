@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Deal;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpdateProfileRequest;
 
 class MypageController extends Controller
 {
@@ -27,25 +29,6 @@ class MypageController extends Controller
         return view('mypage.index', compact('user', 'listedProducts', 'purchasedProducts', 'tab'));
     }
 
-
-    public function update(Request $request)
-    {
-        $user = auth()->user();
-
-        $user->name = $request->name;
-        $user->postcode = $request->postcode;
-        $user->address = $request->address;
-        $user->building = $request->building;
-
-        if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $path;
-        }
-
-        $user->save();
-
-        return redirect()->route('mypage')->with('success', 'プロフィールを更新しました');
-    }
     /**
      * プロフィール編集画面
      */
@@ -59,10 +42,25 @@ class MypageController extends Controller
     /**
      * プロフィール更新処理
      */
-    public function updateProfile(Request $request)
+    public function update(UpdateProfileRequest $request)
     {
-        // バリデーション → 更新処理
+        $user = Auth::user();
+
+        $user->name = $request->name;
+        $user->postcode = $request->postcode;
+        $user->address = $request->address;
+        $user->building = $request->building;
+
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
+
+        $user->save();
+
+        return redirect()->route('mypage');
     }
+
 
     /**
      * 購入した商品一覧（分ける場合）

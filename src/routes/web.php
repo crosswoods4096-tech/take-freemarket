@@ -6,7 +6,7 @@ use App\Http\Controllers\DealController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +34,10 @@ Route::get('/products/recommend', [ProductController::class, 'recommend'])->name
 Route::get('/products/mylist', [ProductController::class, 'mylist'])->name('products.mylist');
 
 // マイリスト（自分の出品一覧）
-Route::get('/mylist', [ProductController::class, 'indexMyList'])->name('products.mylist');
+Route::get('/mylist', [ProductController::class, 'mylist'])
+    ->name('products.mylist')
+    ->middleware('auth');
+
 
 // 出品フォーム
 Route::get('/sell', [ProductController::class, 'create'])
@@ -89,26 +92,28 @@ Route::get('/mypage', [App\Http\Controllers\MypageController::class, 'index'])
     ->middleware('auth');
 
 Route::get('/mypage/edit', [MypageController::class, 'editProfile'])->name('mypage.edit');
-
-Route::post('/mypage/update', [App\Http\Controllers\MypageController::class, 'update'])
+// プロフィール更新
+Route::put('/mypage/update', [MypageController::class, 'update'])
     ->name('mypage.update')
     ->middleware('auth');
+
 
 // プロフィール編集
 Route::get('/mypage/profile', [MypageController::class, 'editProfile'])
     ->middleware('auth')
     ->name('mypage.profile.edit');
 
-// プロフィール更新
-Route::post('/mypage/profile', [MypageController::class, 'updateProfile'])
-    ->middleware('auth')
-    ->name('mypage.profile.update');
+
+
+
 
 // ===============================
 // コメント機能
 // ===============================
 
-Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::post('/products/{product}/comment', [CommentController::class, 'store'])
+    ->name('comments.store');
+
 
 // ===============================
 // 会員登録機能
@@ -135,3 +140,11 @@ Route::get('/login', function () {
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 // ログアウト処理
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// ===============================
+// いいね機能
+// ===============================
+
+Route::post('/products/{product}/like', [LikeController::class, 'toggle'])
+    ->name('products.like')
+    ->middleware('auth');

@@ -14,6 +14,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        // 自分の出品を除外
         $query = Product::where('user_id', '!=', auth()->id());
 
         // 🔍 商品名検索
@@ -22,12 +23,21 @@ class ProductController extends Controller
             $query->where('name', 'like', '%' . $keyword . '%');
         }
 
-        $products = Product::doesntHave('deal')
-            ->latest()
-            ->get();
+        // 売り切れ商品を除外
+        $query->doesntHave('deal');
+
+        // 最終的な取得
+        $products = $query->latest()->get();
 
         return view('products.index', compact('products'));
     }
+    public function mylist()
+    {
+        $products = auth()->user()->likes()->latest()->get();
+
+        return view('products.mylist', compact('products'));
+    }
+
 
     public function recommend()
     {
@@ -35,11 +45,7 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
 
-    public function mylist()
-    {
-        $products = auth()->user()->mylistProducts;
-        return view('products.index', compact('products'));
-    }
+
     /**
      * マイリスト（自分の出品一覧）
      */

@@ -57,4 +57,8 @@ class Product extends Model
         // ローカル保存の場合は storage パスを付ける
         return asset('storage/' . $this->image_path);
     }
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
 }

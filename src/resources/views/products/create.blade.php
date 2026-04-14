@@ -62,13 +62,21 @@
 
         {{-- 商品の状態 --}}
         <div class="form-group">
-            <label class="form-label">商品の状態</label>
-            <select name="condition" class="form-select">
-                <option value="良好">良好</option>
-                <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
-                <option value="やや傷や汚れあり">やや傷や汚れあり</option>
-                <option value="状態が悪い">状態が悪い</option>
+            <label>商品の状態</label>
+            <select name="condition">
+                <option value="" disabled {{ old('condition') === null ? 'selected' : '' }}>
+                    選択してください
+                </option>
+                <option value="1" {{ old('condition') == 1 ? 'selected' : '' }}>新品・未使用</option>
+                <option value="2" {{ old('condition') == 2 ? 'selected' : '' }}>未使用に近い</option>
+                <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>目立った傷や汚れなし</option>
+                <option value="4" {{ old('condition') == 4 ? 'selected' : '' }}>やや傷や汚れあり</option>
             </select>
+
+            @error('condition')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
+
         </div>
 
         <h2 class="section-title">商品名と説明</h2>

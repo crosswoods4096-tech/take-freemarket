@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             // 追加したいユーザー情報
-            $table->string('postcord')->nullable();   // 郵便番号
-            $table->string('address')->nullable();    // 住所
+            $table->string('postcord');   // 郵便番号
+            $table->string('address');    // 住所
             $table->string('building')->nullable();   // 建物名
             $table->string('avatar')->nullable();     // プロフィール画像
 

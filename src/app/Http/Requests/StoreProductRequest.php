@@ -44,8 +44,8 @@ class StoreProductRequest extends FormRequest
 
             'categories.required' => 'カテゴリを選択してください。',
 
-            'condition.required' => '商品の状態を選択してください。',
-            'condition.in' => '選択された商品の状態が不正です。',
+            'condition' => 'required|in:1,2,3,4',
+            'condition.required' => '商品の状態を選択してください',
 
             'name.required' => '商品名を入力してください。',
             'name.max' => '商品名は50文字以内で入力してください。',

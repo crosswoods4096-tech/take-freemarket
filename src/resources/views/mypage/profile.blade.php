@@ -14,6 +14,9 @@
 
     <form action="{{ route('mypage.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
+
+
 
         {{-- プロフィール画像 + ボタン --}}
         <div class="profile-image-area">
@@ -30,16 +33,25 @@
         </div>
 
         <label>ユーザー名</label>
-        <input type="text" name="name" value="{{ $user->name }}">
+        <input type="text" name="name" value="{{ old('name', $user->name) }}">
+        @error('name')
+        <div class="text-danger">{{ $message }}</div>
+        @enderror
 
         <label>郵便番号</label>
-        <input type="text" name="postcode" value="{{ $user->postcode }}">
+        <input type="text" name="postcode" value="{{ old('postcode', $user->postcode) }}">
+        @error('postcode')
+        <div class="text-danger">{{ $message }}</div>
+        @enderror
 
         <label>住所</label>
-        <input type="text" name="address" value="{{ $user->address }}">
+        <input type="text" name="address" value="{{ old('address', $user->address) }}">
+        @error('address')
+        <div class="text-danger">{{ $message }}</div>
+        @enderror
 
         <label>建物名</label>
-        <input type="text" name="building" value="{{ $user->building }}">
+        <input type="text" name="building" value="{{ old('building', $user->building) }}">
 
         <button type="submit" class="update-btn">更新</button>
     </form>

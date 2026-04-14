@@ -30,6 +30,24 @@
                 </span>
                 <span class="text-muted">(税込)</span>
             </div>
+            <div class="flex items-center gap-4 mt-2">
+
+                {{-- いいねボタン --}}
+                <button id="like-btn" data-product-id="{{ $product->id }}">
+                    @if(auth()->user()?->likes->contains($product->id))
+                    ❤️
+                    @else
+                    🤍
+                    @endif
+                </button>
+
+                {{-- コメント閲覧ボタン --}}
+                <a href="#comments-section" class="text-gray-600 hover:text-red-500">
+                    💬 コメントを見る
+                </a>
+
+            </div>
+
 
             @if(!$product->is_sold)
             <a href="{{ route('deal.index', $product->id) }}"
@@ -68,17 +86,45 @@
             </div>
 
             {{-- コメント投稿フォーム --}}
-            <form action="{{ route('comments.store', $product->id) }}" method="POST">
+            <form action="{{ route('comments.store', $product->id) }}" method="POST" class="mt-4">
                 @csrf
-                <textarea name="content" rows="3"
-                    class="w-full border rounded-lg p-2 mb-3"
-                    placeholder="コメントを入力してください"></textarea>
-                <button class="comment-submit-button">
-                    コメントを投稿する
+                <textarea name="content" class="w-full border rounded p-2" rows="3" placeholder="コメントを入力"></textarea>
+
+                <button type="submit"
+                    class="comment-submit-button mt-2">
+                    コメントする
                 </button>
             </form>
-
+            {{-- コメント一覧（アンカー付き） --}}
+            <h2 id="comments-section" class="text-xl font-semibold mb-2 mt-6">コメント</h2>
+            <div class="mb-6">
+                @forelse ($product->comments as $comment)
+                <div class="border-b py-2">
+                    <p class="text-sm text-gray-600">{{ $comment->user->name }}</p>
+                    <p>{{ $comment->content }}</p>
+                </div>
+                @empty
+                <p class="text-gray-500">まだコメントはありません。</p>
+                @endforelse
+            </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('like-btn').addEventListener('click', function() {
+        const productId = this.dataset.productId;
+
+        fetch(`/products/${productId}/like`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                this.textContent = data.liked ? '❤️ いいね済み' : '🤍 いいね';
+            });
+    });
+</script>
 @endsection

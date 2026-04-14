@@ -5,10 +5,12 @@
 @endsection
 
 @section('content')
-<div class="container mx-auto px-6 py-8 buy-container grid grid-cols-3 gap-8">
+<div class="container mx-auto px-6 py-8 buy-container flex gap-10 relative">
+
 
     <!-- 左側（2/3） -->
-    <div class="col-span-2">
+    <div class="flex-1 relative z-0">
+
 
         <!-- 商品画像 + 商品名 + 価格 -->
         <div class="flex items-start gap-6">
@@ -32,9 +34,11 @@
         <h2 class="text-lg font-bold mb-3">支払方法</h2>
 
         <select id="paymentSelect" name="payment" class="w-60 border border-gray-300 rounded-lg p-2">
+            <option value="" selected disabled>選択してください</option>
             <option value="コンビニ払い">コンビニ払い</option>
             <option value="カード支払い">カード支払い</option>
         </select>
+
 
         <hr class="my-6 border-gray-300">
 
@@ -55,7 +59,7 @@
     </div>
 
     <!-- 右側（1/3） -->
-    <div class="col-span-1 space-y-6">
+    <div class="w-1/3 space-y-6 relative z-10">
 
         <!-- 商品代金 -->
         <div class="buy-card flex justify-between items-center">
@@ -68,9 +72,10 @@
         <!-- 支払方法（右側表示用） -->
         <div class="buy-card flex justify-between items-center">
             <p class="buy-card-title">支払方法</p>
-            <p id="paymentDisplay" class="buy-card-value">
-                コンビニ払い
+            <p id="paymentDisplay" class="buy-card-value text-gray-400">
+                選択してください
             </p>
+
         </div>
 
         <!-- 購入ボタン -->
@@ -78,7 +83,7 @@
             @csrf
 
             <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <input type="hidden" name="payment" id="paymentInput" value="コンビニ払い">
+            <input type="hidden" name="payment" id="paymentInput" value="">
 
             <button class="buy-button">購入する</button>
         </form>
@@ -94,6 +99,7 @@
 
     paymentSelect.addEventListener('change', function() {
         paymentDisplay.textContent = this.value;
+        paymentDisplay.classList.remove('text-gray-400'); // 選択後は通常色に戻す
         paymentInput.value = this.value;
     });
 </script>
