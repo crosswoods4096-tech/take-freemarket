@@ -61,4 +61,20 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'likes')->withTimestamps();
     }
+    public function getConditionLabelAttribute()
+    {
+        return [
+            1 => '新品・未使用',
+            2 => '未使用に近い',
+            3 => '目立った傷や汚れなし',
+            4 => 'やや傷や汚れあり',
+        ][$this->condition] ?? '不明';
+    }
+    public function getCategoryNamesAttribute()
+    {
+        // リレーションがロードされていなければロードする
+        $categories = $this->categories()->pluck('name');
+
+        return $categories->toArray();
+    }
 }

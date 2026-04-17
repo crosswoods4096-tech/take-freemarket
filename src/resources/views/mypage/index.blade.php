@@ -41,9 +41,9 @@
     @if ($tab === 'listed')
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach ($listedProducts as $product)
-        <div class="border rounded-lg p-4 flex flex-col items-center">
-            <img src="{{ asset('storage/' . $product->image_path) }}" class="mypage-product-image object-cover rounded mb-3">
-            <p class="font-bold text-left">{{ $product->name }}</p>
+        <div class="mypage-card">
+            <img src="{{ asset('storage/' . $product->image_path) }}" class="mypage-product-image">
+            <p class="mypage-product-name">{{ $product->name }}</p>
         </div>
         @endforeach
     </div>
@@ -54,18 +54,13 @@
     @if ($tab === 'purchased')
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach($purchasedProducts as $deal)
-        <div class="border rounded-lg p-4 flex flex-col items-center">
-            <img src="{{ asset('storage/' . $deal->product->image_path) }}"
-                class="mypage-purchased-image object-cover rounded mb-3">
-
-            <p class="font-bold text-left">{{ $deal->product->name }}</p>
-
+        <div class="mypage-card">
+            <img src="{{ asset('storage/' . $deal->product->image_path) }}" class="mypage-product-image">
+            <p class="mypage-product-name">{{ $deal->product->name }}</p>
         </div>
         @endforeach
     </div>
-
     @endif
-</div>
 
 </div>
 

@@ -31,6 +31,7 @@ class DealController extends Controller
         Deal::create([
             'buyer_id' => auth()->id(),
             'product_id' => $product->id,
+            'payment' => $request->payment,
         ]);
 
 

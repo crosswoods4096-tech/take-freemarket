@@ -82,9 +82,6 @@ Route::post('/deal/complete/{id}', [DealController::class, 'complete'])
 // ===============================
 
 // マイページトップ（プロフィール・購入履歴・出品履歴）
-// Route::get('/mypage', [MypageController::class, 'index'])
-//     ->middleware('auth')
-//     ->name('mypage.index');
 
 // マイページ（トップ）
 Route::get('/mypage', [App\Http\Controllers\MypageController::class, 'index'])

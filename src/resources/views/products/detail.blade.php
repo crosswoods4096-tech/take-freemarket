@@ -65,11 +65,15 @@
             {{-- 商品情報（カテゴリ・状態） --}}
             <h2 class="text-xl font-semibold mb-2">商品の情報</h2>
             <div class="mb-6">
-                <p>
-                    <span class="font-bold">カテゴリ：</span>
-                    {{ $product->category ? $product->category->name : '未設定' }}
+                <p>カテゴリ：
+                    @foreach ($product->category_names as $name)
+                    <span class="category-tag">{{ $name }}</span>
+                    @endforeach
                 </p>
-                <p><span class="font-bold">状態：</span>{{ $product->condition }}</p>
+
+
+                <p>状態：{{ $product->condition_label }}</p>
+
             </div>
 
             {{-- コメント一覧 --}}
