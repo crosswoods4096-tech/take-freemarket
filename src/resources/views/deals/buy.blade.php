@@ -79,14 +79,8 @@
             @csrf
 
             <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <input type="hidden" name="payment" id="paymentInput" value="">
 
-            <!-- 支払方法（フォーム内に移動） -->
-            <select id="paymentSelectForm" class="w-full border border-gray-300 rounded-lg p-2">
-                <option value="" selected disabled>支払方法を選択</option>
-                <option value="コンビニ払い">コンビニ払い</option>
-                <option value="カード支払い">カード支払い</option>
-            </select>
+
 
             <button class="buy-button w-full">購入する</button>
         </form>

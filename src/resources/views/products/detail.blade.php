@@ -78,41 +78,49 @@
 
             </div>
 
-            {{-- コメント一覧 --}}
-            <h2 class="text-xl font-semibold mb-2">コメント</h2>
+            {{-- コメント一覧（アンカー付き） --}}
+            <h2 id="comments-section" class="text-xl font-semibold mb-2 mt-6">コメント（{{ $product->comments->count() }}）</h2>
             <div class="mb-6">
-                @forelse ($product->comments as $comment)
-                <div class="border-b py-2">
-                    <p class="text-sm text-gray-600">{{ $comment->user->name }}</p>
-                    <p>{{ $comment->content }}</p>
+                @foreach ($product->comments as $comment)
+                <div class="flex items-start gap-3 mb-3">
+
+                    {{-- ユーザーアイコン --}}
+                    <img src="{{ $comment->user->avatar 
+            ? asset('storage/' . $comment->user->avatar) 
+            : asset('storage/default-user.png') }}"
+                        class="comment-user-icon">
+
+                    <div class="flex-1">
+                        {{-- ユーザー名 --}}
+                        <p class="font-bold text-sm mb-1">{{ $comment->user->name }}</p>
+
+                        {{-- コメント本文（ここだけ背景灰色） --}}
+                        <p class="comment-body">{{ $comment->content }}</p>
+                    </div>
+
                 </div>
-                @empty
-                <p class="text-gray-500">まだコメントはありません。</p>
-                @endforelse
+                @endforeach
+
+
+
             </div>
 
             {{-- コメント投稿フォーム --}}
             <form action="{{ route('comments.store', $product->id) }}" method="POST" class="mt-4">
                 @csrf
-                <textarea name="content" class="w-full border rounded p-2" rows="3" placeholder="コメントを入力"></textarea>
+                <h2>商品へのコメント</h2>
+                {{-- コメント入力欄（大きめ） --}}
+                <textarea name="content"
+                    class="comment-textarea"
+                    placeholder=""></textarea>
 
-                <button type="submit"
-                    class="comment-submit-button mt-2">
-                    コメントする
+                {{-- 横幅いっぱいの送信ボタン --}}
+                <button type="submit" class="comment-submit-btn">
+                    コメントを送信する
                 </button>
             </form>
-            {{-- コメント一覧（アンカー付き） --}}
-            <h2 id="comments-section" class="text-xl font-semibold mb-2 mt-6">コメント</h2>
-            <div class="mb-6">
-                @forelse ($product->comments as $comment)
-                <div class="border-b py-2">
-                    <p class="text-sm text-gray-600">{{ $comment->user->name }}</p>
-                    <p>{{ $comment->content }}</p>
-                </div>
-                @empty
-                <p class="text-gray-500">まだコメントはありません。</p>
-                @endforelse
-            </div>
+
+
         </div>
     </div>
 </div>

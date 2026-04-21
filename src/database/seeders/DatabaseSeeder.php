@@ -11,13 +11,19 @@ class DatabaseSeeder extends Seeder
     {
         // まずユーザーを1人作成（ProductSeeder が user_id=1 を使うため）
         User::firstOrCreate(
-            ['email' => 'test@example.com'],
+            ['email' => 'test1@example.com'],
             [
-                'name' => 'テストユーザー',
+                'name' => 'テストユーザー１',
                 'password' => bcrypt('password'),
             ]
         );
-
+        User::firstOrCreate(
+            ['email' => 'test2@example.com'],
+            [
+                'name' => 'テストユーザー２',
+                'password' => bcrypt('password'),
+            ]
+        );
         // カテゴリー
         $this->call(CategorySeeder::class);
 

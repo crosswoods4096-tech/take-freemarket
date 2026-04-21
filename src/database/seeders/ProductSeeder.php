@@ -61,7 +61,7 @@ class ProductSeeder extends Seeder
                 'categories' => [2], // 家電
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'マイク',
                 'price' => 8000,
                 'brand' => 'なし',
@@ -71,7 +71,7 @@ class ProductSeeder extends Seeder
                 'categories' => [2, 8], // 家電・ゲーム
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'ショルダーバッグ',
                 'price' => 3500,
                 'brand' => '',
@@ -81,7 +81,7 @@ class ProductSeeder extends Seeder
                 'categories' => [1, 4], // ファッション・レディース
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'タンブラー',
                 'price' => 500,
                 'brand' => 'なし',
@@ -91,7 +91,7 @@ class ProductSeeder extends Seeder
                 'categories' => [10], // キッチン
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'コーヒーミル',
                 'price' => 4000,
                 'brand' => 'Starbacks',
@@ -101,7 +101,7 @@ class ProductSeeder extends Seeder
                 'categories' => [10], // キッチン
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'メイクセット',
                 'price' => 2500,
                 'brand' => '',
