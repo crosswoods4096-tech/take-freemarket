@@ -1,0 +1,31 @@
+/* ===========================
+   商品一覧
+=========================== */
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+    padding: 0 20px 40px;
+}
+
+.product-card {
+    max-width: 180px;
+    margin: 0 auto;
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.product-name {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+/* マイリスト専用の画像サイズ */
+.products-mylist .product-card img {
+    height: 160px;
+}

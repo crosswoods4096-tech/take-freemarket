@@ -35,7 +35,8 @@
 }
 
 .product-card {
-    text-align: center;
+    max-width: 180px;
+    margin: 0 auto;
 }
 
 .product-card img {

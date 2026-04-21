@@ -110,8 +110,9 @@ Route::get('/mypage/profile', [MypageController::class, 'editProfile'])
 // コメント機能
 // ===============================
 
-Route::post('/products/{product}/comment', [CommentController::class, 'store'])
+Route::post('/products/{id}/comment', [CommentController::class, 'store'])
     ->name('comments.store');
+
 
 
 // ===============================
