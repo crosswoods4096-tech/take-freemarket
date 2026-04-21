@@ -223,3 +223,8 @@
 .grid {
     display: grid !important;
 }
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}

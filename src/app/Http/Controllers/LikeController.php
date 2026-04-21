@@ -12,15 +12,13 @@ class LikeController extends Controller
         $user = auth()->user();
 
         if ($user->likes()->where('product_id', $product->id)->exists()) {
-            // いいね解除
+            // すでにいいね → 削除
             $user->likes()->detach($product->id);
-            $liked = false;
         } else {
-            // いいね追加
+            // いいねしてない → 追加
             $user->likes()->attach($product->id);
-            $liked = true;
         }
 
-        return response()->json(['liked' => $liked]);
+        return back();
     }
 }

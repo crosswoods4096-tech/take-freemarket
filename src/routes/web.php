@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DealController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LikeController;
 
+use App\Models\Product;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -142,6 +144,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // いいね機能
 // ===============================
 
-Route::post('/products/{product}/like', [LikeController::class, 'toggle'])
-    ->name('products.like')
-    ->middleware('auth');
+Route::post('/like/{product}', [LikeController::class, 'toggle'])->name('like.toggle');

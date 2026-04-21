@@ -32,14 +32,16 @@
             </div>
             <div class="flex items-center gap-4 mt-2">
 
-                {{-- いいねボタン --}}
-                <button id="like-btn" data-product-id="{{ $product->id }}">
-                    @if(auth()->user()?->likes->contains($product->id))
-                    ❤️
-                    @else
-                    🤍
-                    @endif
-                </button>
+                <form action="{{ route('like.toggle', $product->id) }}" method="POST">
+                    @csrf
+                    <button>
+                        @if(auth()->user()?->likes->contains($product->id))
+                        ❤️
+                        @else
+                        🤍
+                        @endif
+                    </button>
+                </form>
 
                 {{-- コメント閲覧ボタン --}}
                 <a href="#comments-section" class="text-gray-600 hover:text-red-500">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DealStoreRequest;
 use App\Models\Product;
 use App\Models\Deal;
 use Illuminate\Http\Request;
@@ -17,8 +18,10 @@ class DealController extends Controller
         return view('deals.buy', compact('product', 'user'));
     }
     // 購入処理（完了画面なし）
-    public function store(Request $request)
+    public function store(DealStoreRequest $request)
     {
+        // バリデーション済みのデータがここに入る
+        $validated = $request->validated();
         $product = Product::findOrFail($request->product_id);
 
         // すでに購入されているかチェック
@@ -29,10 +32,11 @@ class DealController extends Controller
 
         // 取引レコード作成
         Deal::create([
-            'buyer_id' => auth()->id(),
-            'product_id' => $product->id,
-            'payment' => $request->payment,
+            'buyer_id' => auth()->id(),   // ★ 正しいカラム名
+            'product_id' => $validated['product_id'],
+            'payment' => $validated['payment'],
         ]);
+
 
 
 

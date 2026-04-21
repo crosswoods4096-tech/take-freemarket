@@ -7,10 +7,8 @@
 @section('content')
 <div class="container mx-auto px-6 py-8 buy-container flex gap-10 relative">
 
-
     <!-- 左側（2/3） -->
     <div class="flex-1 relative z-0">
-
 
         <!-- 商品画像 + 商品名 + 価格 -->
         <div class="flex items-start gap-6">
@@ -30,15 +28,14 @@
 
         <hr class="my-6 border-gray-300">
 
-        <!-- 支払方法 -->
+        <!-- 支払方法（左側表示用） -->
         <h2 class="text-lg font-bold mb-3">支払方法</h2>
 
-        <select id="paymentSelect" name="payment" class="w-60 border border-gray-300 rounded-lg p-2">
+        <select id="paymentSelect" class="w-60 border border-gray-300 rounded-lg p-2">
             <option value="" selected disabled>選択してください</option>
             <option value="コンビニ払い">コンビニ払い</option>
             <option value="カード支払い">カード支払い</option>
         </select>
-
 
         <hr class="my-6 border-gray-300">
 
@@ -75,17 +72,23 @@
             <p id="paymentDisplay" class="buy-card-value text-gray-400">
                 選択してください
             </p>
-
         </div>
 
-        <!-- 購入ボタン -->
-        <form action="{{ route('deal.store') }}" method="POST">
+        <!-- 購入フォーム（select をここに移動） -->
+        <form action="{{ route('deal.store') }}" method="POST" class="space-y-4">
             @csrf
 
             <input type="hidden" name="product_id" value="{{ $product->id }}">
             <input type="hidden" name="payment" id="paymentInput" value="">
 
-            <button class="buy-button">購入する</button>
+            <!-- 支払方法（フォーム内に移動） -->
+            <select id="paymentSelectForm" class="w-full border border-gray-300 rounded-lg p-2">
+                <option value="" selected disabled>支払方法を選択</option>
+                <option value="コンビニ払い">コンビニ払い</option>
+                <option value="カード支払い">カード支払い</option>
+            </select>
+
+            <button class="buy-button w-full">購入する</button>
         </form>
 
     </div>
@@ -93,14 +96,26 @@
 </div>
 
 <script>
-    const paymentSelect = document.getElementById('paymentSelect');
+    const paymentSelectLeft = document.getElementById('paymentSelect');
+    const paymentSelectForm = document.getElementById('paymentSelectForm');
     const paymentDisplay = document.getElementById('paymentDisplay');
     const paymentInput = document.getElementById('paymentInput');
 
-    paymentSelect.addEventListener('change', function() {
-        paymentDisplay.textContent = this.value;
-        paymentDisplay.classList.remove('text-gray-400'); // 選択後は通常色に戻す
-        paymentInput.value = this.value;
+    // 左側と右側の select を同期
+    function updatePayment(value) {
+        paymentDisplay.textContent = value;
+        paymentDisplay.classList.remove('text-gray-400');
+        paymentInput.value = value;
+        paymentSelectForm.value = value;
+        paymentSelectLeft.value = value;
+    }
+
+    paymentSelectLeft.addEventListener('change', function() {
+        updatePayment(this.value);
+    });
+
+    paymentSelectForm.addEventListener('change', function() {
+        updatePayment(this.value);
     });
 </script>
 @endsection

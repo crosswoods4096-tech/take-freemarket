@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="mypage-container">
+<d class="mypage-container">
 
     {{-- 上部：プロフィール画像・ユーザー名・編集ボタン --}}
     <div class="profile-top">
@@ -39,7 +39,7 @@
 
     {{-- 出品した商品 --}}
     @if ($tab === 'listed')
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="product-list">
         @foreach ($listedProducts as $product)
         <div class="mypage-card">
             <img src="{{ asset('storage/' . $product->image_path) }}" class="mypage-product-image">
@@ -52,7 +52,7 @@
 
     {{-- 購入した商品 --}}
     @if ($tab === 'purchased')
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div class="product-list">
         @foreach($purchasedProducts as $deal)
         <div class="mypage-card">
             <img src="{{ asset('storage/' . $deal->product->image_path) }}" class="mypage-product-image">
@@ -62,6 +62,6 @@
     </div>
     @endif
 
-</div>
+    </div>
 
-@endsection
+    @endsection
