@@ -22,9 +22,13 @@ class ProductController extends Controller
             $keyword = $request->keyword;
             $query->where('name', 'like', '%' . $keyword . '%');
         }
-
+        if ($request->tab === 'recommend') {
+            $products = Product::where('is_recommend', true)->get();
+        } else {
+            $products = Product::all();
+        }
         // 売り切れ商品を除外
-        $query->doesntHave('deal');
+        // $query->doesntHave('deal');
 
         // 最終的な取得
         $products = $query->latest()->get();
