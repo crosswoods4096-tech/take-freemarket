@@ -29,6 +29,12 @@ class MypageController extends Controller
         return view('mypage.index', compact('user', 'listedProducts', 'purchasedProducts', 'tab'));
     }
 
+    public function registerProfile()
+    {
+        $user = auth()->user();
+        return view('mypage.register_profile', compact('user'));
+    }
+
     /**
      * プロフィール編集画面
      */

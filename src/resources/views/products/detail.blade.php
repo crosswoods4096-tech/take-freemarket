@@ -34,12 +34,13 @@
 
                 <form action="{{ route('like.toggle', $product->id) }}" method="POST">
                     @csrf
-                    <button>
-                        @if(auth()->user()?->likes->contains($product->id))
-                        ❤️
+                    <button type="submit" class="like-button" style="background:none; border:none;">
+                        @if (auth()->check() && $product->isLikedBy(Auth::user()))
+                        <img src="{{ asset('images/like_on.png') }}" alt="liked" class="like-icon">
                         @else
-                        🤍
+                        <img src="{{ asset('images/like_off.png') }}" alt="not liked" class="like-icon">
                         @endif
+
                     </button>
                 </form>
 
@@ -53,10 +54,12 @@
 
             @if(!$product->is_sold)
             <a href="{{ route('deal.index', $product->id) }}"
-                class="detail-buy-button">
+                class="purchase-btn">
                 購入手続きへ
             </a>
             @endif
+
+
 
 
 

@@ -42,9 +42,8 @@
         <!-- 配送先 -->
         <div class="flex justify-between items-center mb-3">
             <h2 class="text-lg font-bold">配送先</h2>
-            <a href="{{ route('mypage.profile.edit') }}" class="text-blue-600 underline">
-                変更する
-            </a>
+            <a href="{{ route('deal.address.edit', $product->id) }}" class="text-blue-600 underline">変更する</a>
+
         </div>
 
         <div class="text-gray-700 leading-relaxed">
@@ -79,11 +78,11 @@
             @csrf
 
             <input type="hidden" name="product_id" value="{{ $product->id }}">
-
-
+            <input type="hidden" name="payment" id="paymentInput" value="">
 
             <button class="buy-button w-full">購入する</button>
         </form>
+
 
     </div>
 

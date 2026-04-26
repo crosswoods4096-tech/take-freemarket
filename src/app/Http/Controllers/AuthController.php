@@ -27,7 +27,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         // ★ プロフィール編集画面へ遷移
-        return redirect()->route('mypage.edit');
+        return redirect()->route('register.profile');
     }
 
     // ログイン処理

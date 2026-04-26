@@ -29,6 +29,7 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 // 商品詳細
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
+
 // おすすめ
 Route::get('/products/recommend', [ProductController::class, 'recommend'])->name('products.recommend');
 
@@ -57,12 +58,14 @@ Route::post('/sell', [ProductController::class, 'store'])
 // ===============================
 
 // 購入確認画面
-Route::get('/deal/{id}', [DealController::class, 'index'])
+// 購入確認画面
+Route::get('/deal/show/{id}', [DealController::class, 'index'])
     ->middleware('auth')
     ->name('deal.index');
 
 // 購入処理
-Route::post('/deal', [DealController::class, 'store'])->name('deal.store');
+Route::post('/deal/store', [DealController::class, 'store'])->name('deal.store');
+
 // 住所変更画面
 Route::get('/deal/address/{id}', [DealController::class, 'editAddress'])
     ->middleware('auth')
@@ -126,7 +129,11 @@ Route::get('/register', function () {
 
 Route::post('/register', [AuthController::class, 'store'])->name('register.post');
 
-
+// 登録直後のプロフィール入力画面
+Route::get('/register/profile', [MypageController::class, 'registerProfile'])
+    ->name('register.profile')
+    ->middleware('auth');
+    
 // ===============================
 // ログイン機能
 // ===============================

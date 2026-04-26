@@ -11,7 +11,7 @@
         {{-- 中央：検索フォーム --}}
         <div class="header-center">
             <form action="{{ route('products.index') }}" method="GET" class="search-form">
-                <input type="text" name="keyword" class="search-input" placeholder="何をお探しですか？">
+                <input type="text" name="keyword" class="search-input" value="{{ request('keyword') }}" placeholder="何をお探しですか？">
             </form>
         </div>
 
