@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
                 'price' => 15000,
                 'brand' => 'Rolax',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
+                'image_path' => 'sample/Armani+Mens+Clock.jpg',
                 'condition' => '良好',
                 'categories' => [1, 4], // ← 複数カテゴリー
             ],
@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
                 'price' => 5000,
                 'brand' => '西芝',
                 'description' => '高速で信頼性の高いハードディスク',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
+                'image_path' => 'sample/HDD+Hard+Disk.jpg',
                 'condition' => '目立った傷や汚れなし',
                 'categories' => [2], // 家電
             ],
@@ -36,7 +36,7 @@ class ProductSeeder extends Seeder
                 'price' => 300,
                 'brand' => 'なし',
                 'description' => '新鮮な玉ねぎ3束のセット',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg',
+                'image_path' => 'sample/iLoveIMG+d.jpg',
                 'condition' => 'やや傷や汚れあり',
                 'categories' => [14], // ベビー・キッズなど適当に
             ],
@@ -46,7 +46,7 @@ class ProductSeeder extends Seeder
                 'price' => 4000,
                 'brand' => '',
                 'description' => 'クラシックなデザインの革靴',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
+                'image_path' => 'sample/Leather+Shoes+Product+Photo.jpg',
                 'condition' => '状態が悪い',
                 'categories' => [1, 5], // ファッション・メンズ
             ],
@@ -56,7 +56,7 @@ class ProductSeeder extends Seeder
                 'price' => 45000,
                 'brand' => '',
                 'description' => '高性能なノートパソコン',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg',
+                'image_path' => 'sample/Living+Room+Laptop.jpg',
                 'condition' => '良好',
                 'categories' => [2], // 家電
             ],
@@ -66,7 +66,7 @@ class ProductSeeder extends Seeder
                 'price' => 8000,
                 'brand' => 'なし',
                 'description' => '高音質のレコーディング用マイク',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
+                'image_path' => 'sample/Music+Mic+4632231.jpg',
                 'condition' => '目立った傷や汚れなし',
                 'categories' => [2, 8], // 家電・ゲーム
             ],
@@ -76,7 +76,7 @@ class ProductSeeder extends Seeder
                 'price' => 3500,
                 'brand' => '',
                 'description' => 'おしゃれなショルダーバッグ',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg',
+                'image_path' => 'sample/Purse+fashion+pocket.jpg',
                 'condition' => 'やや傷や汚れあり',
                 'categories' => [1, 4], // ファッション・レディース
             ],
@@ -86,7 +86,7 @@ class ProductSeeder extends Seeder
                 'price' => 500,
                 'brand' => 'なし',
                 'description' => '使いやすいタンブラー',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg',
+                'image_path' => 'sample/Tumbler+souvenir.jpg',
                 'condition' => '状態が悪い',
                 'categories' => [10], // キッチン
             ],
@@ -96,7 +96,7 @@ class ProductSeeder extends Seeder
                 'price' => 4000,
                 'brand' => 'Starbacks',
                 'description' => '手動のコーヒーミル',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg',
+                'image_path' => 'sample/Waitress+with+Coffee+Grinder.jpg',
                 'condition' => '良好',
                 'categories' => [10], // キッチン
             ],
@@ -106,7 +106,7 @@ class ProductSeeder extends Seeder
                 'price' => 2500,
                 'brand' => '',
                 'description' => '便利なメイクアップセット',
-                'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
+                'image_path' => 'sample/外出メイクアップセット.jpg',
                 'condition' => '目立った傷や汚れなし',
                 'categories' => [6], // コスメ
             ],

@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'テストユーザー１',
                 'password' => bcrypt('password'),
+                'postcode' => '125-0042',
+                'address' => 'Tokyo'
             ]
         );
         User::firstOrCreate(
@@ -22,6 +24,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'テストユーザー２',
                 'password' => bcrypt('password'),
+                'postcode' => '271-0094',
+                'address' => 'Chiba'
             ]
         );
         // カテゴリー

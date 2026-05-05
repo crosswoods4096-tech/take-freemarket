@@ -73,41 +73,37 @@
             </p>
         </div>
 
-        <!-- 購入フォーム（select をここに移動） -->
         <form action="{{ route('deal.store') }}" method="POST" class="space-y-4">
             @csrf
 
             <input type="hidden" name="product_id" value="{{ $product->id }}">
             <input type="hidden" name="payment" id="paymentInput" value="">
 
+            <!-- ★ バリデーションエラー表示 -->
+            @error('payment')
+            <p class="text-red-500 text-sm">{{ $message }}</p>
+            @enderror
+
             <button class="buy-button w-full">購入する</button>
         </form>
+
 
 
     </div>
 
 </div>
-
 <script>
     const paymentSelectLeft = document.getElementById('paymentSelect');
-    const paymentSelectForm = document.getElementById('paymentSelectForm');
     const paymentDisplay = document.getElementById('paymentDisplay');
     const paymentInput = document.getElementById('paymentInput');
 
-    // 左側と右側の select を同期
     function updatePayment(value) {
         paymentDisplay.textContent = value;
         paymentDisplay.classList.remove('text-gray-400');
         paymentInput.value = value;
-        paymentSelectForm.value = value;
-        paymentSelectLeft.value = value;
     }
 
     paymentSelectLeft.addEventListener('change', function() {
-        updatePayment(this.value);
-    });
-
-    paymentSelectForm.addEventListener('change', function() {
         updatePayment(this.value);
     });
 </script>

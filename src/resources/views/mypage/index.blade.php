@@ -42,7 +42,9 @@
     <div class="product-list">
         @foreach ($listedProducts as $product)
         <div class="mypage-card">
-            <img src="{{ asset('storage/' . $product->image_path) }}" class="mypage-product-image">
+            <a href="{{ route('products.show', $product->id) }}">
+                <img src="{{ asset('storage/' . $product->image_path) }}" class="mypage-product-image">
+            </a>
             <p class="mypage-product-name">{{ $product->name }}</p>
         </div>
         @endforeach
@@ -50,17 +52,21 @@
     @endif
 
 
+
     {{-- 購入した商品 --}}
     @if ($tab === 'purchased')
     <div class="product-list">
         @foreach($purchasedProducts as $deal)
         <div class="mypage-card">
-            <img src="{{ asset('storage/' . $deal->product->image_path) }}" class="mypage-product-image">
+            <a href="{{ route('products.show', $deal->product->id) }}">
+                <img src="{{ asset('storage/' . $deal->product->image_path) }}" class="mypage-product-image">
+            </a>
             <p class="mypage-product-name">{{ $deal->product->name }}</p>
         </div>
         @endforeach
     </div>
     @endif
+
 
     </div>
 
