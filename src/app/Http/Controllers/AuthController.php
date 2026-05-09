@@ -38,7 +38,7 @@ class AuthController extends Controller
         // 認証を試みる
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate(); // セッション固定攻撃対策
-            return redirect()->route('products.index'); // ログイン後の遷移先（例）
+            return redirect('/mypage'); // ログイン後の遷移先（例）
         }
 
         // 認証失敗時

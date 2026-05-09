@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 
-class LogoutTest extends TestCase
+class T03LogoutTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -26,6 +26,6 @@ class LogoutTest extends TestCase
         $this->assertGuest();
 
         // ログイン画面へリダイレクトされることを確認
-        $response->assertRedirect('/');
+        $response->assertRedirect('/login');
     }
 }

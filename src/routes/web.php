@@ -34,7 +34,8 @@ Route::get('/products/{id}', [ProductController::class, 'show'])->name('products
 Route::get('/products/recommend', [ProductController::class, 'recommend'])->name('products.recommend');
 
 // マイリスト
-Route::get('/products/mylist', [ProductController::class, 'mylist'])->name('products.mylist');
+Route::get('/mylist', [MyListController::class, 'index'])->name('mylist');
+
 
 // マイリスト（自分の出品一覧）
 Route::get('/mylist', [ProductController::class, 'mylist'])
@@ -133,7 +134,7 @@ Route::post('/register', [AuthController::class, 'store'])->name('register.post'
 Route::get('/register/profile', [MypageController::class, 'registerProfile'])
     ->name('register.profile')
     ->middleware('auth');
-    
+
 // ===============================
 // ログイン機能
 // ===============================
@@ -153,3 +154,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // ===============================
 
 Route::post('/like/{product}', [LikeController::class, 'toggle'])->name('like.toggle');
+
+// ===============================
+// 検索機能
+// ===============================
+Route::get('/search', [ProductController::class, 'search'])->name('products.search');

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 
-class LoginTest extends TestCase
+class T02LoginTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -52,7 +52,7 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors([
-            'email' => 'ログイン情報が登録されていません',
+            'email' => 'メールアドレスまたはパスワードが正しくありません',
         ]);
     }
 
