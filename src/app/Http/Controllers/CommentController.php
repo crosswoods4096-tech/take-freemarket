@@ -2,22 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Comment;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
     public function store(Request $request, Product $product)
     {
-        $request->validate([
-            'content' => 'required|string|max:500',
-        ]);
+        $validated = $request->validate(
+            [
+                'comment' => 'required|string|max:255',
+            ],
+            [
+                'comment.required' => 'コメントを入力してください',
+                'comment.max' => 'コメントは255文字以内で入力してください',
+            ]
+        );
 
-        $product->comments()->create([
+        Comment::create([
             'user_id' => auth()->id(),
-            'content' => $request->content,
+            'product_id' => $product->id,
+            'content' => $validated['comment'], // ← migration と一致
         ]);
 
-        return redirect()->back()->with('success', 'コメントを投稿しました。');
+        return redirect('/products/' . $product->id);
     }
 }

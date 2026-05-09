@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 
-
-
-
 class LikeController extends Controller
 {
     public function toggle(Product $product)
@@ -14,13 +11,19 @@ class LikeController extends Controller
         $user = auth()->user();
 
         if ($user->likes()->where('product_id', $product->id)->exists()) {
-            // すでにいいね → 削除
             $user->likes()->detach($product->id);
         } else {
-            // いいねしてない → 追加
             $user->likes()->attach($product->id);
         }
 
-        return back();
+        return redirect('/products/' . $product->id);
+    }
+
+    public function destroy(Product $product)
+    {
+        $user = auth()->user();
+        $user->likes()->detach($product->id);
+
+        return redirect('/products/' . $product->id);
     }
 }

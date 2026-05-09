@@ -37,6 +37,7 @@ class Product extends Model
     {
         return $this->hasOne(Deal::class);
     }
+    
 
 
     public function comments()
@@ -57,6 +58,12 @@ class Product extends Model
         // ローカル保存の場合は storage パスを付ける
         return asset('storage/' . $this->image_path);
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
+
     public function likedByUsers()
     {
         return $this->belongsToMany(User::class, 'likes')->withTimestamps();
@@ -80,10 +87,5 @@ class Product extends Model
     public function isLikedBy($user)
     {
         return $this->likes()->where('user_id', $user->id)->exists();
-    }
-
-    public function likes()
-    {
-        return $this->hasMany(Like::class);
     }
 }

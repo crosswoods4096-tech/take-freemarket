@@ -7,48 +7,65 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Product;
 
-class LikeTest extends TestCase
+class T08LikesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** 
+    private function createUser()
+    {
+        return User::create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => bcrypt('password'),
+        ]);
+    }
+
+    private function createProduct($user)
+    {
+        return Product::create([
+            'user_id' => $user->id, // 外部キー制約を確実に通す
+            'name' => 'テスト商品',
+            'description' => '説明文',
+            'price' => 1000,
+            'condition' => '新品',
+            'image_path' => 'test.jpg',
+        ]);
+    }
+
+    /**
      * ① いいねボタンを押すことでいいねした商品に登録できる
      */
     public function test_いいねボタンを押すと商品がいいね登録される()
     {
-        $user = User::factory()->create();
-        $product = Product::factory()->create();
+        $user = $this->createUser();
+        $product = $this->createProduct($user);
 
-        // ログイン状態でいいね実行
         $response = $this->actingAs($user)->post('/products/' . $product->id . '/like');
 
-        // likes テーブルに登録されていること
         $this->assertDatabaseHas('likes', [
             'user_id' => $user->id,
             'product_id' => $product->id,
         ]);
 
-        // 商品詳細へ戻る
         $response->assertRedirect('/products/' . $product->id);
     }
 
     /**
      * ② いいねボタンを押すことで、アイコンの色が変化する
-     * （例：🤍 → ❤️ に変わる）
      */
     public function test_いいねするとアイコンが赤色ハートに変化する()
     {
-        $user = User::factory()->create();
-        $product = Product::factory()->create();
+        $user = $this->createUser();
+        $product = $this->createProduct($user);
 
-        // いいね前の画面（白ハート 🤍）
+        // いいね前（白ハート）
         $responseBefore = $this->actingAs($user)->get('/products/' . $product->id);
         $responseBefore->assertSee('🤍');
 
         // いいね実行
         $this->actingAs($user)->post('/products/' . $product->id . '/like');
 
-        // いいね後の画面（赤ハート ❤️）
+        // いいね後（赤ハート）
         $responseAfter = $this->actingAs($user)->get('/products/' . $product->id);
         $responseAfter->assertSee('❤️');
     }
@@ -58,22 +75,20 @@ class LikeTest extends TestCase
      */
     public function test_いいねボタンをもう一度押すといいね解除される()
     {
-        $user = User::factory()->create();
-        $product = Product::factory()->create();
+        $user = $this->createUser();
+        $product = $this->createProduct($user);
 
-        // 事前にいいねしておく
+        // 事前にいいね
         $user->likes()->attach($product->id);
 
-        // いいね解除実行
+        // 解除実行
         $response = $this->actingAs($user)->delete('/products/' . $product->id . '/like');
 
-        // likes テーブルから削除されていること
         $this->assertDatabaseMissing('likes', [
             'user_id' => $user->id,
             'product_id' => $product->id,
         ]);
 
-        // 商品詳細へ戻る
         $response->assertRedirect('/products/' . $product->id);
     }
 }
