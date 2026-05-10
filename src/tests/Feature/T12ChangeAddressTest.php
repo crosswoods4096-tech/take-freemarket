@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Purchase;
 
-class ShippingAddressTest extends TestCase
+class T12ChangeAddressTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -17,13 +17,25 @@ class ShippingAddressTest extends TestCase
      */
     public function test_住所変更が購入画面に反映される()
     {
-        $user = User::factory()->create([
+        // ユーザー作成（factory 不使用）
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test1@example.com',
+            'password' => bcrypt('password123'),
             'postcode' => '111-1111',
             'address' => '旧住所',
             'building' => '旧マンション',
         ]);
 
-        $product = Product::factory()->create();
+        // 商品作成（factory 不使用）
+        $product = Product::create([
+            'name' => 'テスト商品',
+            'price' => 1000,
+            'image_path' => 'test.jpg',
+            'condition' => '良好',
+            'description' => 'テスト用の商品です。',
+            'user_id' => $user->id,
+        ]);
 
         // ログイン状態で住所変更を実行
         $this->actingAs($user)->post('/address/update', [
@@ -46,13 +58,25 @@ class ShippingAddressTest extends TestCase
      */
     public function test_購入した商品に住所が紐づいて保存される()
     {
-        $user = User::factory()->create([
+        // ユーザー作成（factory 不使用）
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test2@example.com',
+            'password' => bcrypt('password123'),
             'postcode' => '333-3333',
             'address' => 'テスト住所',
             'building' => 'テストマンション',
         ]);
 
-        $product = Product::factory()->create();
+        // 商品作成（factory 不使用）
+        $product = Product::create([
+            'name' => 'テスト商品',
+            'price' => 2000,
+            'image_path' => 'test.jpg',
+            'condition' => '良好',
+            'description' => 'テスト用の商品です。',
+            'user_id' => $user->id,
+        ]);
 
         // 購入処理
         $this->actingAs($user)->post('/purchase/' . $product->id);

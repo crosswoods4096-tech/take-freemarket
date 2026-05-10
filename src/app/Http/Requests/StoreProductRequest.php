@@ -14,16 +14,16 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => ['required', 'image', 'mimes:jpeg,png', 'max:5120'], // 5MB
-            'categories' => ['required', 'string'], // "1,3,5" のような文字列
-            'condition' => ['required', 'in:1,2,3,4'],
-
+            'image' => ['nullable', 'image', 'mimes:jpeg,png', 'max:5120'], // ← nullable に変更
+            'categories' => ['required'], // 配列でも文字列でも許可
+            'condition' => ['required', 'string'],
             'name' => ['required', 'string', 'max:50'],
             'brand' => ['nullable', 'string', 'max:50'],
-            'description' => ['required', 'string', 'max:255'], // ← 255文字に変更
-            'price' => ['required', 'integer', 'min:0'], // ← 最低0円、上限なし
+            'description' => ['required', 'string', 'max:500'],
+            'price' => ['required', 'integer', 'min:300', 'max:999999'],
         ];
     }
+
 
     public function messages()
     {

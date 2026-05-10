@@ -29,7 +29,7 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 // 商品詳細
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
-
+Route::post('/products', [ProductController::class, 'store'])->middleware('auth');
 // おすすめ
 Route::get('/products/recommend', [ProductController::class, 'recommend'])->name('products.recommend');
 
@@ -82,7 +82,11 @@ Route::post('/deal/complete/{id}', [DealController::class, 'complete'])
     ->middleware('auth')
     ->name('deal.complete');
 
-
+Route::get('/profile/purchased', [DealController::class, 'purchased'])
+    ->middleware('auth');
+// 支払方法
+Route::get('/buy/{product}', [DealController::class, 'buy'])->middleware('auth');
+Route::post('/buy/{product}', [DealController::class, 'updatePayment'])->middleware('auth');
 // ===============================
 // マイページ
 // ===============================

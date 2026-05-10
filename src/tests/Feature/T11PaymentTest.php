@@ -7,7 +7,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Product;
 
-class PaymentMethodTest extends TestCase
+class T11PaymentTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -16,9 +16,21 @@ class PaymentMethodTest extends TestCase
      */
     public function test_小計画面で支払方法の変更が反映される()
     {
-        $user = User::factory()->create();
-        $product = Product::factory()->create([
+        // ユーザー作成（factory 不使用）
+        $user = User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => bcrypt('password123'),
+        ]);
+
+        // 商品作成（factory 不使用）
+        $product = Product::create([
+            'name' => 'テスト商品',
             'price' => 3000,
+            'image_path' => 'test.jpg',
+            'condition' => '良好',
+            'description' => 'テスト用の商品です。',
+            'user_id' => $user->id,
         ]);
 
         // ログイン状態で小計画面へアクセス

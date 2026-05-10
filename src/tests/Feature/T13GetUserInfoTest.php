@@ -8,36 +8,47 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Purchase;
 
-class UserInfoTest extends TestCase
+class T13UserInfoTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * ① 必要な情報が取得できる
-     * （プロフィール画像、ユーザー名、出品した商品一覧、購入した商品一覧）
-     */
     public function test_ユーザー情報が正しく取得できる()
     {
         // ユーザー作成
-        $user = User::factory()->create([
+        $user = User::create([
             'name' => 'テストユーザー',
+            'email' => 'user@example.com',
+            'password' => bcrypt('password123'),
             'avatar' => 'test-avatar.jpg',
         ]);
 
         // 出品した商品
-        $listed1 = Product::factory()->create([
-            'user_id' => $user->id,
+        $listed1 = Product::create([
             'name' => '出品商品A',
+            'price' => 1000,
+            'image_path' => 'a.jpg',
+            'condition' => '良好',
+            'description' => '説明A',
+            'user_id' => $user->id,
         ]);
 
-        $listed2 = Product::factory()->create([
-            'user_id' => $user->id,
+        $listed2 = Product::create([
             'name' => '出品商品B',
+            'price' => 2000,
+            'image_path' => 'b.jpg',
+            'condition' => '良好',
+            'description' => '説明B',
+            'user_id' => $user->id,
         ]);
 
         // 購入した商品
-        $purchasedProduct = Product::factory()->create([
+        $purchasedProduct = Product::create([
             'name' => '購入商品A',
+            'price' => 3000,
+            'image_path' => 'c.jpg',
+            'condition' => '良好',
+            'description' => '説明C',
+            'user_id' => $user->id,
         ]);
 
         Purchase::create([
@@ -48,17 +59,10 @@ class UserInfoTest extends TestCase
         // マイページへアクセス
         $response = $this->actingAs($user)->get('/mypage');
 
-        // プロフィール画像
         $response->assertSee('test-avatar.jpg');
-
-        // ユーザー名
         $response->assertSee('テストユーザー');
-
-        // 出品した商品一覧
         $response->assertSee('出品商品A');
         $response->assertSee('出品商品B');
-
-        // 購入した商品一覧
         $response->assertSee('購入商品A');
     }
 }

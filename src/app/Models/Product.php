@@ -33,11 +33,13 @@ class Product extends Model
     /**
      * 取引情報（1商品1取引）
      */
+
+
     public function deal()
     {
-        return $this->hasOne(Deal::class);
+        return $this->hasOne(\App\Models\Purchase::class);
     }
-    
+
 
 
     public function comments()

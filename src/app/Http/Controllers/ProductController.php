@@ -31,7 +31,8 @@ class ProductController extends Controller
         // $query->doesntHave('deal');
 
         // 最終的な取得
-        $products = $query->latest()->get();
+        $products = Product::with('deal')->get();
+
 
         return view('products.index', compact('products'));
     }
@@ -83,11 +84,19 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
 
-        // カテゴリを配列に変換
-        $categoryIds = explode(',', $validated['categories']);
+        // カテゴリ（配列 or カンマ区切り文字列の両方に対応）
+        $categoryIds = is_array($validated['categories'])
+            ? $validated['categories']
+            : explode(',', $validated['categories']);
 
-        // 画像保存
-        $path = $request->file('image')->store('products', 'public');
+
+        // 画像が送られていない場合はダミー画像を使用
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+        } else {
+            $path = 'products/dummy.jpg';
+        }
+
 
         // 商品保存
         $product = Product::create([
@@ -100,11 +109,12 @@ class ProductController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        // 中間テーブルにカテゴリを保存（多対多の場合）
+        // カテゴリ紐付け
         $product->categories()->sync($categoryIds);
 
         return redirect()->route('products.index');
     }
+
 
     /**
      * 出品登録処理
