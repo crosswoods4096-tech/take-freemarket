@@ -17,7 +17,7 @@ class CreateDealsTable extends Migration
                 ->onDelete('cascade');
 
             // 購入者
-            $table->foreignId('buyer_id')
+            $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
 

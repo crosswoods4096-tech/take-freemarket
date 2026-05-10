@@ -8,6 +8,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MyListController;
 
 use App\Models\Product;
 /*
@@ -34,7 +35,9 @@ Route::post('/products', [ProductController::class, 'store'])->middleware('auth'
 Route::get('/products/recommend', [ProductController::class, 'recommend'])->name('products.recommend');
 
 // マイリスト
-Route::get('/mylist', [MyListController::class, 'index'])->name('mylist');
+Route::get('/mylist', [MyListController::class, 'mylist'])
+    ->name('products.mylist')
+    ->middleware('auth');
 
 
 // マイリスト（自分の出品一覧）
@@ -78,9 +81,11 @@ Route::post('/deal/address/{id}', [DealController::class, 'updateAddress'])
     ->name('deal.address.update');
 
 // 購入確定処理
-Route::post('/deal/complete/{id}', [DealController::class, 'complete'])
+Route::post('/deal/{product}', [DealController::class, 'store'])
     ->middleware('auth')
-    ->name('deal.complete');
+    ->name('deal.store');
+
+
 
 Route::get('/profile/purchased', [DealController::class, 'purchased'])
     ->middleware('auth');
@@ -94,9 +99,9 @@ Route::post('/buy/{product}', [DealController::class, 'updatePayment'])->middlew
 // マイページトップ（プロフィール・購入履歴・出品履歴）
 
 // マイページ（トップ）
-Route::get('/mypage', [App\Http\Controllers\MypageController::class, 'index'])
-    ->name('mypage')
-    ->middleware('auth');
+Route::get('/mypage', [MyPageController::class, 'index'])
+    ->middleware('auth')
+    ->name('mypage');
 
 Route::get('/mypage/edit', [MypageController::class, 'editProfile'])->name('mypage.edit');
 // プロフィール更新
@@ -119,7 +124,7 @@ Route::get('/mypage/profile', [MypageController::class, 'editProfile'])
 // ===============================
 
 Route::post('/products/{product}/comments', [CommentController::class, 'store'])
-    ->middleware('auth');
+    ->name('comments.store');
 
 
 

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Product;
-use App\Models\Purchase;
+
 
 class T10BuyTest extends TestCase
 {
@@ -41,10 +41,10 @@ class T10BuyTest extends TestCase
         $user = $this->createUser();
         $product = $this->createProduct($user);
 
-        $response = $this->actingAs($user)->post('/purchase/' . $product->id);
+        $response = $this->actingAs($user)->post('/deal/' . $product->id);
 
         // 購入テーブルに登録されている
-        $this->assertDatabaseHas('purchases', [
+        $this->assertDatabaseHas('deals', [
             'user_id' => $user->id,
             'product_id' => $product->id,
         ]);
@@ -61,7 +61,7 @@ class T10BuyTest extends TestCase
         $product = $this->createProduct($user, 'テスト商品');
 
         // 購入処理
-        $this->actingAs($user)->post('/purchase/' . $product->id);
+        $this->actingAs($user)->post('/deal/' . $product->id);
 
         // 一覧画面へアクセス
         $response = $this->get('/products');
@@ -80,7 +80,7 @@ class T10BuyTest extends TestCase
         $product = $this->createProduct($user, '購入商品テスト');
 
         // 購入処理
-        $this->actingAs($user)->post('/purchase/' . $product->id);
+        $this->actingAs($user)->post('/deal/' . $product->id);
 
         // プロフィールの購入商品一覧へアクセス
         $response = $this->actingAs($user)->get('/profile/purchased');

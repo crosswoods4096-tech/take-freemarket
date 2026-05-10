@@ -18,16 +18,22 @@ class MypageController extends Controller
     {
         $user = auth()->user();
 
-        $tab = $request->tab ?? 'listed'; // デフォルトは出品した商品
+        $tab = $request->get('tab', 'listed');
 
         $listedProducts = Product::where('user_id', $user->id)->get();
 
-        $purchasedProducts = Deal::where('buyer_id', $user->id)
-            ->with('product')
-            ->get();
+        $purchasedProducts = Product::whereHas('deal', function ($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->get();
 
-        return view('mypage.index', compact('user', 'listedProducts', 'purchasedProducts', 'tab'));
+        return view('mypage.index', compact(
+            'user',
+            'tab',
+            'listedProducts',
+            'purchasedProducts'
+        ));
     }
+
 
     public function registerProfile()
     {

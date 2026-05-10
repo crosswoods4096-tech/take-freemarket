@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Product;
-use App\Models\Purchase;
+use App\Models\Deal;
 
 class T13UserInfoTest extends TestCase
 {
@@ -51,7 +51,7 @@ class T13UserInfoTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        Purchase::create([
+        Deal::create([
             'user_id' => $user->id,
             'product_id' => $purchasedProduct->id,
         ]);

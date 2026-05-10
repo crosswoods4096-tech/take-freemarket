@@ -41,15 +41,22 @@
         <div class="form-group mb-4">
             <label class="form-label">カテゴリ</label>
 
+            @php
+            $oldCategories = old('categories') ? explode(',', old('categories')) : [];
+            @endphp
+
             <div class="flex flex-wrap gap-2">
                 @foreach ($categories as $category)
                 <button type="button"
-                    class="category-toggle-btn {{ in_array($category->id, explode(',', old('categories', ''))) ? 'active' : '' }}"
+                    class="category-toggle-btn {{ in_array((string)$category->id, $oldCategories, true) ? 'active' : '' }}"
                     data-id="{{ $category->id }}">
                     {{ $category->name }}
                 </button>
                 @endforeach
             </div>
+
+            <input type="hidden" name="categories" id="selectedCategories" value="{{ old('categories') }}">
+
 
             {{-- 選択されたカテゴリIDを格納する hidden --}}
             <input type="hidden" name="categories" id="selectedCategories" value="{{ old('categories') }}">

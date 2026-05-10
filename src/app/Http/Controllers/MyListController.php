@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class MyListController extends Controller
 {
-    public function index()
+    public function mylist()
     {
         $user = auth()->user();
 
-        $likes = Like::where('user_id', $user->id)
-            ->with('product')
-            ->get();
+        // いいねした商品
+        $products = $user->likes()->with('deal')->get();
 
-        return view('mylist.index', compact('likes'));
+        // 購入済み商品
+        $purchasedProducts = Product::whereHas('deal', function ($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->get();
+
+        return view('products.mylist', compact('products', 'purchasedProducts'));
     }
 }

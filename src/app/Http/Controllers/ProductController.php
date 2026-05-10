@@ -15,7 +15,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         // 自分の出品を除外
-        $query = Product::where('user_id', '!=', auth()->id());
+        $userId = auth()->id();
+
+        $products = Product::where('user_id', '!=', $userId)
+            ->with('deal')
+            ->get();
 
         // 🔍 商品名検索
         if ($request->filled('keyword')) {

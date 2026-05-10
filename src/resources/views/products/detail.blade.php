@@ -71,9 +71,10 @@
             <h2 class="text-xl font-semibold mb-2">商品の情報</h2>
             <div class="mb-6">
                 <p>カテゴリ：
-                    @foreach ($product->category_names as $name)
+                    @foreach ($product->category_names ?? [] as $name)
                     <span class="category-tag">{{ $name }}</span>
                     @endforeach
+
                 </p>
 
 

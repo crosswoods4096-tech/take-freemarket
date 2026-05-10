@@ -10,10 +10,21 @@
 
         {{-- 中央：検索フォーム --}}
         <div class="header-center">
-            <form action="{{ route('products.index') }}" method="GET" class="search-form">
-                <input type="text" name="keyword" class="search-input" value="{{ request('keyword') }}" placeholder="何をお探しですか？">
-            </form>
+            <div class="search-form">
+                <input type="text"
+                    name="keyword"
+                    form="searchForm"
+                    class="search-input"
+                    value="{{ request('keyword') }}"
+                    placeholder="何をお探しですか？">
+            </div>
         </div>
+
+        <form id="searchForm" action="{{ route('products.index') }}" method="GET"></form>
+
+
+
+
 
         {{-- 右：ログイン/ログアウト・マイページ・出品 --}}
         <div class="header-right">

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Comment;
 
 class Product extends Model
 {
@@ -18,9 +17,8 @@ class Product extends Model
         'description',
         'image_path',
         'condition',
-        'category_id',
-        'is_sold',
     ];
+
     /**
      * 出品者
      */
@@ -29,65 +27,70 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-
     /**
      * 取引情報（1商品1取引）
+     * deals テーブルの user_id が購入者
      */
-
-
     public function deal()
     {
-        return $this->hasOne(\App\Models\Purchase::class);
+        return $this->hasOne(Deal::class, 'product_id');
     }
 
-
-
+    /**
+     * コメント
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * カテゴリ（多対多）
+     */
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
-    }
-    public function getImageUrlAttribute()
-    {
-        // すでにフルURL（S3など）ならそのまま返す
-        if (str_starts_with($this->image_path, 'http')) {
-            return $this->image_path;
-        }
-
-        // ローカル保存の場合は storage パスを付ける
-        return asset('storage/' . $this->image_path);
-    }
-
-    public function likes()
-    {
-        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
-    }
-
-    public function likedByUsers()
-    {
-        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
-    }
-    public function getConditionLabelAttribute()
-    {
-        return [
-            1 => '新品・未使用',
-            2 => '未使用に近い',
-            3 => '目立った傷や汚れなし',
-            4 => 'やや傷や汚れあり',
-        ][$this->condition] ?? '不明';
+        return $this->belongsToMany(Category::class, 'category_product');
     }
     public function getCategoryNamesAttribute()
     {
-        // リレーションがロードされていなければロードする
-        $categories = $this->categories()->pluck('name');
+        return $this->categories->pluck('name')->toArray();
+    }
 
-        return $categories->toArray();
+
+    /**
+     * 画像URL
+     */
+    public function getImageUrlAttribute()
+    {
+        if (str_starts_with($this->image_path, 'http')) {
+            return $this->image_path;
+        }
+        return asset('storage/' . $this->image_path);
+    }
+
+    /**
+     * いいね（多対多）
+     */
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'likes')
+            ->withTimestamps();
     }
     public function isLikedBy($user)
     {
+        if (!$user) {
+            return false;
+        }
+
         return $this->likes()->where('user_id', $user->id)->exists();
+    }
+
+
+    /**
+     * 商品が SOLD かどうか
+     */
+    public function getIsSoldAttribute()
+    {
+        return $this->deal()->exists();
     }
 }

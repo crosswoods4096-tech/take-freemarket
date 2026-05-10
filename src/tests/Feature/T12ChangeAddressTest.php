@@ -82,7 +82,7 @@ class T12ChangeAddressTest extends TestCase
         $this->actingAs($user)->post('/purchase/' . $product->id);
 
         // purchases テーブルに住所が保存されていること
-        $this->assertDatabaseHas('purchases', [
+        $this->assertDatabaseHas('deals', [
             'user_id' => $user->id,
             'product_id' => $product->id,
             'postcode' => '333-3333',

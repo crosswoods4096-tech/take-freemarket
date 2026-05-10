@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Purchase;
+use App\Models\Deal;
 use Illuminate\Http\Request;
 
 class DealController extends Controller
@@ -11,25 +11,25 @@ class DealController extends Controller
     /**
      * 購入処理
      */
+
     public function store(Product $product)
     {
         $user = auth()->user();
 
-        // すでに購入済みなら何もしない（2重購入防止）
-        if ($product->purchase) {
+        // すでに購入済みなら何もしない
+        if ($product->deal) {
             return redirect('/products');
         }
 
-        // 購入テーブルに登録
-        Purchase::create([
+        Deal::create([
             'user_id' => $user->id,
             'product_id' => $product->id,
         ]);
 
-        // is_sold は使わない（購入テーブルが存在するかで判定）
-
         return redirect('/products');
     }
+
+
 
     /**
      * 購入済み商品一覧（プロフィール画面）

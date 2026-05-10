@@ -56,14 +56,16 @@
     {{-- 購入した商品 --}}
     @if ($tab === 'purchased')
     <div class="product-list">
-        @foreach($purchasedProducts as $deal)
+        @foreach($purchasedProducts as $product)
         <div class="mypage-card">
-            <a href="{{ route('products.show', $deal->product->id) }}">
-                <img src="{{ asset('storage/' . $deal->product->image_path) }}" class="mypage-product-image">
+            <a href="{{ route('products.show', $product->id) }}">
+                <img src="{{ asset('storage/' . $product->image_path) }}" class="mypage-product-image">
             </a>
-            <p class="mypage-product-name">{{ $deal->product->name }}</p>
+            <p class="mypage-product-name">{{ $product->name }}</p>
         </div>
         @endforeach
+
+
     </div>
     @endif
 
