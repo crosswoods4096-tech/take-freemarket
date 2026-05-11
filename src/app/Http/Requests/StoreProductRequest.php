@@ -19,8 +19,8 @@ class StoreProductRequest extends FormRequest
             'condition' => ['required', 'string'],
             'name' => ['required', 'string', 'max:50'],
             'brand' => ['nullable', 'string', 'max:50'],
-            'description' => ['required', 'string', 'max:500'],
-            'price' => ['required', 'integer', 'min:300', 'max:999999'],
+            'description' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'integer', 'min:0', 'max:999999'],
         ];
     }
 
@@ -48,7 +48,8 @@ class StoreProductRequest extends FormRequest
 
             'price.required' => '販売価格を入力してください。',
             'price.integer' => '販売価格は数値で入力してください。',
-            'price.min' => '販売価格は0円以上で入力してください。',
+            'price.min' => '販売価格は1円以上で入力してください。',
+            'price.max' => '販売価格は1,000,000円未満で入力してください。',
         ];
     }
 }

@@ -1,0 +1,69 @@
+/* 全体カード */
+.address-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* タイトル */
+.address-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 28px;
+    color: #333;
+}
+
+/* ラベル */
+.address-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+/* 入力欄（大きめ） */
+.form-input-large,
+.form-textarea-large {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.form-input-large:focus,
+.form-textarea-large:focus {
+    border-color: #ff5555;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 85, 85, 0.25);
+}
+
+/* テキストエリア高さ */
+.form-textarea-large {
+    height: 110px;
+    resize: vertical;
+}
+
+/* 更新ボタン */
+.address-submit-btn {
+    width: 100%;
+    background: #ff5555;
+    color: #fff;
+    padding: 14px 0;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: opacity 0.2s;
+}
+
+.address-submit-btn:hover {
+    opacity: 0.85;
+}

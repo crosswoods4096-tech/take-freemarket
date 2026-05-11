@@ -86,8 +86,9 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
+        
         $validated = $request->validated();
-
+        dd($validated);
         // カテゴリ（配列 or カンマ区切り文字列の両方に対応）
         $categoryIds = is_array($validated['categories'])
             ? $validated['categories']

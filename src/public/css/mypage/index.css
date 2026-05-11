@@ -195,14 +195,11 @@
 }
 /* 商品カードの統一デザイン */
 .mypage-card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
     padding: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 160px; /* ← カード幅を固定 */
-    margin: 0 auto; /* ← 中央寄せ */
 }
 
 /* 商品画像の統一サイズ */

@@ -31,7 +31,7 @@
         <!-- 支払方法（左側表示用） -->
         <h2 class="text-lg font-bold mb-3">支払方法</h2>
 
-        <select id="paymentSelect" class="w-60 border border-gray-300 rounded-lg p-2">
+        <select id="paymentSelect" name="payment" class="w-60 border border-gray-300 rounded-lg p-2">
             <option value="" selected disabled>選択してください</option>
             <option value="コンビニ払い">コンビニ払い</option>
             <option value="カード支払い">カード支払い</option>
@@ -73,11 +73,11 @@
             </p>
         </div>
 
-        <form action="{{ route('deal.store') }}" method="POST" class="space-y-4">
+        <form action="{{ route('deal.store', $product->id) }}" method="POST">
             @csrf
 
             <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <input type="hidden" name="payment" id="paymentInput" value="">
+            <!-- <input type="hidden" name="payment" id="paymentInput" value=""> -->
 
             <!-- ★ バリデーションエラー表示 -->
             @error('payment')
@@ -104,7 +104,8 @@
     }
 
     paymentSelectLeft.addEventListener('change', function() {
-        updatePayment(this.value);
+        paymentDisplay.textContent = this.value;
+        paymentDisplay.classList.remove('text-gray-400');
     });
 </script>
 @endsection

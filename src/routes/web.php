@@ -61,15 +61,11 @@ Route::post('/sell', [ProductController::class, 'store'])
 // Deal 購入フロー（完了画面なし）
 // ===============================
 
+
 // 購入確認画面
-// 購入確認画面
-Route::get('/deal/show/{id}', [DealController::class, 'index'])
+Route::get('/deal/{product}', [DealController::class, 'index'])
     ->middleware('auth')
     ->name('deal.index');
-
-// 購入処理
-Route::post('/deal/store', [DealController::class, 'store'])->name('deal.store');
-
 // 住所変更画面
 Route::get('/deal/address/{id}', [DealController::class, 'editAddress'])
     ->middleware('auth')
@@ -89,9 +85,9 @@ Route::post('/deal/{product}', [DealController::class, 'store'])
 
 Route::get('/profile/purchased', [DealController::class, 'purchased'])
     ->middleware('auth');
-// 支払方法
-Route::get('/buy/{product}', [DealController::class, 'buy'])->middleware('auth');
-Route::post('/buy/{product}', [DealController::class, 'updatePayment'])->middleware('auth');
+// // 支払方法
+// Route::get('/deal/{product}', [DealController::class, 'buy'])->middleware('auth');
+// Route::post('/deal/{product}', [DealController::class, 'updatePayment'])->middleware('auth');
 // ===============================
 // マイページ
 // ===============================
