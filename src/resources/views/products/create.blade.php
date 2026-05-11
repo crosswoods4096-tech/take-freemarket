@@ -13,8 +13,7 @@
     <form action="{{ route('products.store') }}"
         method="POST"
         enctype="multipart/form-data"
-        class="sell-form"
-        novalidate>
+        class="sell-form">
         @csrf
 
         {{-- 商品画像 --}}
@@ -54,9 +53,6 @@
                 </button>
                 @endforeach
             </div>
-
-            <input type="hidden" name="categories" id="selectedCategories" value="{{ old('categories') }}">
-
 
             {{-- 選択されたカテゴリIDを格納する hidden --}}
             <input type="hidden" name="categories" id="selectedCategories" value="{{ old('categories') }}">
@@ -100,9 +96,10 @@
         {{-- ブランド名 --}}
         <div class="form-group">
             <label class="form-label">ブランド名</label>
-            <input type="text" name="brand" class="form-input">
+            <input type="text" name="brand" class="form-input" value="{{ old('brand') }}">
             @error('brand')
-            <div class="text-danger">{{ $message }}</div>
+            <div class=" text-danger">{{ $message }}
+            </div>
             @enderror
         </div>
 

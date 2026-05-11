@@ -14,32 +14,32 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // 自分の出品を除外
         $userId = auth()->id();
 
-        $products = Product::where('user_id', '!=', $userId)
-            ->with('deal')
-            ->get();
+        // ベースクエリ（自分の出品を除外）
+        $query = Product::where('user_id', '!=', $userId)
+            ->with('deal');
 
         // 🔍 商品名検索
         if ($request->filled('keyword')) {
             $keyword = $request->keyword;
             $query->where('name', 'like', '%' . $keyword . '%');
         }
+
+        // 🔖 おすすめタブ
         if ($request->tab === 'recommend') {
-            $products = Product::where('is_recommend', true)->get();
-        } else {
-            $products = Product::all();
+            $query->where('is_recommend', true);
         }
-        // 売り切れ商品を除外
+
+        // SOLD を除外したい場合
         // $query->doesntHave('deal');
 
-        // 最終的な取得
-        $products = Product::with('deal')->get();
-
+        // 最終取得
+        $products = $query->get();
 
         return view('products.index', compact('products'));
     }
+
     public function mylist()
     {
         $products = auth()->user()->likes()->latest()->get();
@@ -86,9 +86,10 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        
+
+
         $validated = $request->validated();
-        dd($validated);
+
         // カテゴリ（配列 or カンマ区切り文字列の両方に対応）
         $categoryIds = is_array($validated['categories'])
             ? $validated['categories']

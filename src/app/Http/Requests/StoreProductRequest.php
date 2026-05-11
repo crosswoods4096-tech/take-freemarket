@@ -15,7 +15,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'image' => ['nullable', 'image', 'mimes:jpeg,png', 'max:5120'], // ← nullable に変更
-            'categories' => ['required'], // 配列でも文字列でも許可
+            'categories' => ['required', 'string'],
             'condition' => ['required', 'string'],
             'name' => ['required', 'string', 'max:50'],
             'brand' => ['nullable', 'string', 'max:50'],
@@ -48,7 +48,7 @@ class StoreProductRequest extends FormRequest
 
             'price.required' => '販売価格を入力してください。',
             'price.integer' => '販売価格は数値で入力してください。',
-            'price.min' => '販売価格は1円以上で入力してください。',
+            'price.min' => '販売価格は0円以上で入力してください。',
             'price.max' => '販売価格は1,000,000円未満で入力してください。',
         ];
     }
