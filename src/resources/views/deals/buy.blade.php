@@ -40,7 +40,7 @@
         <hr class="my-6 border-gray-300">
 
         <!-- 配送先 -->
-        <div class="flex justify-between items-center mb-3">
+        <div class="buy-address-header mb-3">
             <h2 class="text-lg font-bold">配送先</h2>
             <a href="{{ route('deal.address.edit', $product->id) }}" class="text-blue-600 underline">変更する</a>
 

@@ -82,6 +82,13 @@ class DealController extends Controller
 
         return redirect('/buy/' . $product->id);
     }
+    public function editAddress($id)
+    {
+        $product = Product::findOrFail($id);
+        $user = auth()->user();
+
+        return view('deals.address_update', compact('product', 'user'));
+    }
 
     public function updateAddress(Request $request, $id)
     {

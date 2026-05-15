@@ -120,3 +120,10 @@
     font-weight: bold !important;
     color: #333 !important;
 }
+/* 配送先タイトルと変更リンクを左右端に配置 */
+.buy-address-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+}

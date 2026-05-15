@@ -70,10 +70,10 @@
                 <option value="" disabled {{ old('condition') === null ? 'selected' : '' }}>
                     選択してください
                 </option>
-                <option value="1" {{ old('condition') == 1 ? 'selected' : '' }}>新品・未使用</option>
-                <option value="2" {{ old('condition') == 2 ? 'selected' : '' }}>未使用に近い</option>
-                <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>目立った傷や汚れなし</option>
-                <option value="4" {{ old('condition') == 4 ? 'selected' : '' }}>やや傷や汚れあり</option>
+                <option value="1" {{ old('condition') == 1 ? 'selected' : '' }}>良好</option>
+                <option value="2" {{ old('condition') == 2 ? 'selected' : '' }}>目立った傷や汚れなし</option>
+                <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>やや傷や汚れあり</option>
+                <option value="4" {{ old('condition') == 4 ? 'selected' : '' }}>状態が悪い</option>
             </select>
 
             @error('condition')

@@ -60,7 +60,8 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         const avatarInput = document.querySelector('.image-input');
-        const avatarPreview = document.querySelector('.profile-image');
+        const avatarPreview = document.querySelector('.profile-image, .profile-placeholder');
+
 
         avatarInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
