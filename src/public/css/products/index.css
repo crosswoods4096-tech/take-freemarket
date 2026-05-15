@@ -118,3 +118,10 @@
     display: block;
     margin: 0 auto;
 }
+/* タブ下の横線 */
+.tab-underline {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin-bottom: 20px;
+}

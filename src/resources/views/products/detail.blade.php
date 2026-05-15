@@ -24,7 +24,7 @@
             <p class="text-gray-500 text-sm mb-4">{{ $product->brand }}</p>
 
             <div class="mb-4">
-                <span class="fw-bold">価格：</span>
+
                 <span class="fs-4 text-black">
                     ¥{{ number_format($product->price) }}
                 </span>
@@ -32,23 +32,29 @@
             </div>
             <div class="flex items-center gap-4 mt-2">
 
-                <form action="{{ route('like.toggle', $product->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="like-button" style="background:none; border:none;">
-                        @if (auth()->check() && $product->isLikedBy(Auth::user()))
-                        <img src="{{ asset('images/like_on.png') }}" alt="liked" class="like-icon">
-                        @else
-                        <img src="{{ asset('images/like_off.png') }}" alt="not liked" class="like-icon">
-                        @endif
+                <div class="icon-row">
+                    <div class="icon-block">
+                        <form action="{{ route('like.toggle', $product->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="like-button" style="background:none; border:none;">
+                                @if (auth()->check() && $product->isLikedBy(Auth::user()))
+                                <img src="{{ asset('images/like_on.png') }}" alt="liked" class="like-icon">
+                                @else
+                                <img src="{{ asset('images/like_off.png') }}" alt="not liked" class="like-icon">
+                                @endif
 
-                    </button>
-                </form>
-
-                {{-- コメント閲覧ボタン --}}
-                <a href="#comments-section" class="text-gray-600 hover:text-red-500">
-                    💬 コメントを見る
-                </a>
-
+                            </button>
+                        </form>
+                        <div class="icon-count">{{ $product->likes_count }}</div>
+                    </div>
+                    <div class="icon-block">
+                        {{-- コメントを見るリンク（画像版） --}}
+                        <a href="#comment-list" class="comment-view-link">
+                            <img src="{{ asset('images/comment.png') }}" class="comment-view-icon">
+                        </a>
+                        <div class="icon-count">{{ $product->comments_count }}</div>
+                    </div>
+                </div>
             </div>
 
 

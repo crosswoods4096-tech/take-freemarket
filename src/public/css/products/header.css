@@ -1,11 +1,12 @@
 /* ===========================
    ヘッダー
 =========================== */
+
 .header-bar {
     background: #000;
     color: #fff;
     padding: 12px 20px;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;

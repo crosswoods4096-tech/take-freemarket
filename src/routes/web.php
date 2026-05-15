@@ -120,7 +120,9 @@ Route::get('/mypage/profile', [MypageController::class, 'editProfile'])
 // ===============================
 
 Route::post('/products/{product}/comments', [CommentController::class, 'store'])
+    ->middleware('auth')
     ->name('comments.store');
+
 
 
 
@@ -155,13 +157,19 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // いいね登録・解除（POST）
-Route::post('/products/{product}/like', [LikeController::class, 'toggle'])
-    ->name('like.toggle');
-
+Route::middleware('auth')->group(
+    function () {
+        Route::post('/products/{product}/like', [LikeController::class, 'toggle'])
+            ->name('like.toggle');
+    }
+);
 // いいね解除（DELETE）
-Route::delete('/products/{product}/like', [LikeController::class, 'destroy'])
-    ->name('like.destroy');
-
+Route::middleware('auth')->group(
+    function () {
+        Route::delete('/products/{product}/like', [LikeController::class, 'destroy'])
+            ->name('like.destroy');
+    }
+);
 
 // ===============================
 // 検索機能

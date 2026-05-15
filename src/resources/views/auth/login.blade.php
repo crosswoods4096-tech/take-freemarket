@@ -42,7 +42,7 @@
 
             {{-- 会員登録へのリンク --}}
             <div class="text-center">
-                <a href="{{ route('register') }}" class="text-muted" style="font-size: 0.9rem;">
+                <a href="{{ route('register') }}" class="register-link" style="font-size: 0.9rem;">
                     会員登録はこちら
                 </a>
             </div>

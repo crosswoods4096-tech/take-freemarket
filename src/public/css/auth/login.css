@@ -1,0 +1,25 @@
+.easyheader-bar {
+    background: #000;
+    color: #fff;
+    padding: 50px 20px;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.easyheader-left {
+    padding: 1000px 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/*登録リンクを青色に*/
+.register-link {
+    color: #007bff !important; /* Bootstrap の青 */
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}

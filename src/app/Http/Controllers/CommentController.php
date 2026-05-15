@@ -12,18 +12,18 @@ class CommentController extends Controller
     {
         $validated = $request->validate(
             [
-                'comment' => 'required|string|max:255',
+                'content' => 'required|string|max:255',
             ],
             [
-                'comment.required' => 'コメントを入力してください',
-                'comment.max' => 'コメントは255文字以内で入力してください',
+                'content.required' => 'コメントを入力してください',
+                'content.max' => 'コメントは255文字以内で入力してください',
             ]
         );
 
         Comment::create([
             'user_id' => auth()->id(),
             'product_id' => $product->id,
-            'content' => $validated['comment'], // ← migration と一致
+            'content' => $validated['content'],
         ]);
 
         return redirect('/products/' . $product->id);

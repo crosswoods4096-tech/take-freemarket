@@ -60,7 +60,7 @@
 
             {{-- ログイン画面へのリンク --}}
             <div class="text-center">
-                <a href="{{ route('login') }}" class="text-muted" style="font-size: 0.9rem;">
+                <a href="{{ route('login') }}" class="login-link" style="font-size: 0.9rem;">
                     ログインはこちら
                 </a>
             </div>

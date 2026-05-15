@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
                 'brand' => 'Rolax',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
                 'image_path' => 'sample/Armani+Mens+Clock.jpg',
-                'condition' => '良好',
+                'condition' => 1,
                 'categories' => [1, 4], // ← 複数カテゴリー
             ],
             [
@@ -27,7 +27,7 @@ class ProductSeeder extends Seeder
                 'brand' => '西芝',
                 'description' => '高速で信頼性の高いハードディスク',
                 'image_path' => 'sample/HDD+Hard+Disk.jpg',
-                'condition' => '目立った傷や汚れなし',
+                'condition' => 2,
                 'categories' => [2], // 家電
             ],
             [
@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
                 'brand' => 'なし',
                 'description' => '新鮮な玉ねぎ3束のセット',
                 'image_path' => 'sample/iLoveIMG+d.jpg',
-                'condition' => 'やや傷や汚れあり',
+                'condition' => 3,
                 'categories' => [14], // ベビー・キッズなど適当に
             ],
             [
@@ -47,7 +47,7 @@ class ProductSeeder extends Seeder
                 'brand' => '',
                 'description' => 'クラシックなデザインの革靴',
                 'image_path' => 'sample/Leather+Shoes+Product+Photo.jpg',
-                'condition' => '状態が悪い',
+                'condition' => 4,
                 'categories' => [1, 5], // ファッション・メンズ
             ],
             [
@@ -57,7 +57,7 @@ class ProductSeeder extends Seeder
                 'brand' => '',
                 'description' => '高性能なノートパソコン',
                 'image_path' => 'sample/Living+Room+Laptop.jpg',
-                'condition' => '良好',
+                'condition' => 1,
                 'categories' => [2], // 家電
             ],
             [
@@ -67,7 +67,7 @@ class ProductSeeder extends Seeder
                 'brand' => 'なし',
                 'description' => '高音質のレコーディング用マイク',
                 'image_path' => 'sample/Music+Mic+4632231.jpg',
-                'condition' => '目立った傷や汚れなし',
+                'condition' => 2,
                 'categories' => [2, 8], // 家電・ゲーム
             ],
             [
@@ -77,7 +77,7 @@ class ProductSeeder extends Seeder
                 'brand' => '',
                 'description' => 'おしゃれなショルダーバッグ',
                 'image_path' => 'sample/Purse+fashion+pocket.jpg',
-                'condition' => 'やや傷や汚れあり',
+                'condition' => 3,
                 'categories' => [1, 4], // ファッション・レディース
             ],
             [
@@ -87,7 +87,7 @@ class ProductSeeder extends Seeder
                 'brand' => 'なし',
                 'description' => '使いやすいタンブラー',
                 'image_path' => 'sample/Tumbler+souvenir.jpg',
-                'condition' => '状態が悪い',
+                'condition' => 4,
                 'categories' => [10], // キッチン
             ],
             [
@@ -97,7 +97,7 @@ class ProductSeeder extends Seeder
                 'brand' => 'Starbacks',
                 'description' => '手動のコーヒーミル',
                 'image_path' => 'sample/Waitress+with+Coffee+Grinder.jpg',
-                'condition' => '良好',
+                'condition' => 1,
                 'categories' => [10], // キッチン
             ],
             [
@@ -107,7 +107,7 @@ class ProductSeeder extends Seeder
                 'brand' => '',
                 'description' => '便利なメイクアップセット',
                 'image_path' => 'sample/外出メイクアップセット.jpg',
-                'condition' => '目立った傷や汚れなし',
+                'condition' => 2,
                 'categories' => [6], // コスメ
             ],
         ];

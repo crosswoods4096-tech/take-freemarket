@@ -23,7 +23,7 @@
             @if ($user->avatar)
             <img src="{{ asset('storage/' . $user->avatar) }}" alt="プロフィール画像" class="profile-image">
             @else
-            <img src="{{ asset('storage/default-user.png') }}" alt="プロフィール画像" class="profile-image">
+            <img src="{{ asset('storage/default-user.png') }}" class="profile-placeholder">
             @endif
 
             <label class="image-select-btn">
@@ -53,7 +53,7 @@
         <label>建物名</label>
         <input type="text" name="building" value="{{ old('building', $user->building) }}">
 
-        <button type="submit" class="update-btn">更新</button>
+        <button type="submit" class="update-btn">更新する</button>
     </form>
 </div>
 <script>
