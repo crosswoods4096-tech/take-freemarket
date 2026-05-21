@@ -20,7 +20,7 @@
             <h2 class="profile-name">{{ $user->name }}</h2>
         </div>
 
-        <a href="{{ route('mypage.edit') }}" class="edit-btn">プロフィールを編集</a>
+        <a href="{{ route('mypage.profile.edit') }}" class="edit-btn">プロフィールを編集</a>
     </div>
 
     {{-- タブ切り替えボタン --}}

@@ -15,7 +15,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'image' => ['nullable', 'image', 'mimes:jpeg,png', 'max:5120'], // ← nullable に変更
-            'categories' => ['required', 'string'],
+            'categories' => ['required'],
             'condition' => ['required', 'string'],
             'name' => ['required', 'string', 'max:50'],
             'brand' => ['nullable', 'string', 'max:50'],

@@ -31,10 +31,7 @@ class ProductController extends Controller
             $query->where('is_recommend', true);
         }
 
-        // SOLD を除外したい場合
-        // $query->doesntHave('deal');
 
-        // 最終取得
         $products = $query->get();
 
         return view('products.index', compact('products'));

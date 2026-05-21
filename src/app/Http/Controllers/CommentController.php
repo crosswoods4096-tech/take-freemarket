@@ -10,20 +10,17 @@ class CommentController extends Controller
 {
     public function store(Request $request, Product $product)
     {
-        $validated = $request->validate(
-            [
-                'content' => 'required|string|max:255',
-            ],
-            [
-                'content.required' => 'コメントを入力してください',
-                'content.max' => 'コメントは255文字以内で入力してください',
-            ]
-        );
+        $request->validate([
+            'comment' => 'required|max:255',
+        ], [
+            'comment.required' => 'コメントを入力してください',
+            'comment.max' => 'コメントは255文字以内で入力してください',
+        ]);
 
         Comment::create([
             'user_id' => auth()->id(),
             'product_id' => $product->id,
-            'content' => $validated['content'],
+            'content' => $request->comment, // ← テスト仕様に合わせる
         ]);
 
         return redirect('/products/' . $product->id);

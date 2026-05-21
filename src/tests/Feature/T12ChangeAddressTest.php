@@ -45,7 +45,7 @@ class T12ChangeAddressTest extends TestCase
         ]);
 
         // 購入画面へアクセス
-        $response = $this->actingAs($user)->get('/buy/' . $product->id);
+        $response = $this->actingAs($user)->get('/deal/' . $product->id);
 
         // 新しい住所が反映されていること
         $response->assertSee('222-2222');
@@ -78,16 +78,23 @@ class T12ChangeAddressTest extends TestCase
             'user_id' => $user->id,
         ]);
 
+        $this->actingAs($user)->post('/address/update', [
+            'postcode' => '222-2222',
+            'address' => '新住所',
+            'building' => '新マンション',
+        ]);
+
+
         // 購入処理
-        $this->actingAs($user)->post('/purchase/' . $product->id);
+        $this->actingAs($user)->post('/deal/' . $product->id);
 
         // purchases テーブルに住所が保存されていること
         $this->assertDatabaseHas('deals', [
             'user_id' => $user->id,
             'product_id' => $product->id,
-            'postcode' => '333-3333',
-            'address' => 'テスト住所',
-            'building' => 'テストマンション',
+            'postcode' => '222-2222',
+            'address' => '新住所',
+            'building' => '新マンション',
         ]);
     }
 }

@@ -28,7 +28,7 @@ class DealController extends Controller
     public function store(DealStoreRequest $request, Product $product)
     {
         // バリデーション済みの値
-        dd($request->all());
+
 
         $validated = $request->validated();
 
@@ -38,7 +38,7 @@ class DealController extends Controller
             'payment' => $validated['payment'],
         ]);
 
-        return redirect()->route('deal.complete');
+        return redirect()->route('products');
     }
 
 

@@ -54,6 +54,9 @@ class T13UserInfoTest extends TestCase
         Deal::create([
             'user_id' => $user->id,
             'product_id' => $purchasedProduct->id,
+            'postcode' => '111-1111',
+            'address' => '住所',
+            'building' => '建物',
         ]);
 
         // マイページへアクセス

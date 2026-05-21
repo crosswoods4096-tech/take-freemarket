@@ -41,12 +41,16 @@ class T10BuyTest extends TestCase
         $user = $this->createUser();
         $product = $this->createProduct($user);
 
-        $response = $this->actingAs($user)->post('/deal/' . $product->id);
 
+        $response = $this->actingAs($user)->post('/deal/' . $product->id, [
+            'product_id' => $product->id,
+            'payment' => '1',
+        ]);
         // 購入テーブルに登録されている
         $this->assertDatabaseHas('deals', [
             'user_id' => $user->id,
             'product_id' => $product->id,
+            
         ]);
 
         $response->assertRedirect('/products');

@@ -12,6 +12,10 @@ class Deal extends Model
     protected $fillable = [
         'product_id',
         'user_id',
+        'postcode',
+        'address',
+        'building',
+
     ];
 
     /**

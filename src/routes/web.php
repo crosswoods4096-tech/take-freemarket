@@ -10,15 +10,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MyListController;
 
-use App\Models\Product;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
-
 // ===============================
-// 商品（トップ・詳細・出品）
+// 商品（トップ・詳細・マイリスト・出品）
 // ===============================
 
 // 商品一覧（トップページ）
@@ -38,13 +31,6 @@ Route::get('/products/recommend', [ProductController::class, 'recommend'])->name
 Route::get('/mylist', [MyListController::class, 'mylist'])
     ->name('products.mylist')
     ->middleware('auth');
-
-
-// マイリスト（自分の出品一覧）
-Route::get('/mylist', [ProductController::class, 'mylist'])
-    ->name('products.mylist')
-    ->middleware('auth');
-
 
 // 出品フォーム
 Route::get('/sell', [ProductController::class, 'create'])
@@ -81,39 +67,25 @@ Route::post('/deal/{product}', [DealController::class, 'store'])
     ->middleware('auth')
     ->name('deal.store');
 
-
-
+//購入者データ獲得
 Route::get('/profile/purchased', [DealController::class, 'purchased'])
     ->middleware('auth');
-// // 支払方法
-// Route::get('/deal/{product}', [DealController::class, 'buy'])->middleware('auth');
-// Route::post('/deal/{product}', [DealController::class, 'updatePayment'])->middleware('auth');
 // ===============================
-// マイページ
+// マイページ関連
 // ===============================
-
-// マイページトップ（プロフィール・購入履歴・出品履歴）
-
 // マイページ（トップ）
 Route::get('/mypage', [MyPageController::class, 'index'])
     ->middleware('auth')
     ->name('mypage');
 
-Route::get('/mypage/edit', [MypageController::class, 'editProfile'])->name('mypage.edit');
-// プロフィール更新
 Route::put('/mypage/update', [MypageController::class, 'update'])
     ->name('mypage.update')
     ->middleware('auth');
-
 
 // プロフィール編集
 Route::get('/mypage/profile', [MypageController::class, 'editProfile'])
     ->middleware('auth')
     ->name('mypage.profile.edit');
-
-
-
-
 
 // ===============================
 // コメント機能
@@ -155,6 +127,10 @@ Route::get('/login', function () {
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 // ログアウト処理
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// ===============================
+// いいね機能
+// ===============================
 
 // いいね登録・解除（POST）
 Route::middleware('auth')->group(

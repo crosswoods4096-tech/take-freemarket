@@ -120,7 +120,7 @@
                 @csrf
                 <h2>商品へのコメント</h2>
                 {{-- コメント入力欄（大きめ） --}}
-                <textarea name="content"
+                <textarea name="comment"
                     class="comment-textarea"
                     placeholder=""></textarea>
 

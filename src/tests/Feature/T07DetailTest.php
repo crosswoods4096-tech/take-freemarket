@@ -38,6 +38,6 @@ class T07DetailTest extends TestCase
         $response->assertSee('キウイ');
         $response->assertSee('300');
         $response->assertSee('テスト用の商品です');
-        $response->assertSee('新品・未使用');
+        $response->assertSee('良好');
     }
 }

@@ -51,26 +51,43 @@ class T05MyListTest extends TestCase
 
 
 
-    /** @test */
     public function test_購入済み商品には_soldと表示される()
     {
-        $user = \App\Models\User::factory()->create();
+        // ユーザー作成
+        $user = \App\Models\User::create([
+            'name' => 'テストユーザー',
+            'email' => 'test@example.com',
+            'password' => bcrypt('password'),
+        ]);
 
-        $product = Product::create([
+        // 商品作成（sold_flag は使わない）
+        $product = \App\Models\Product::create([
             'name' => 'メロン',
             'price' => 1000,
             'description' => '購入済み商品',
             'user_id' => $user->id,
             'image_path' => 'melon.jpg',
             'condition' => '良好',
-            'sold_flag' => 1, // ← 購入済み
         ]);
 
+        // Deal を作成（これが SOLD の根拠）
+        \App\Models\Deal::create([
+            'user_id' => $user->id,
+            'product_id' => $product->id,
+            'postcode' => '111-1111',
+            'address' => '住所',
+            'building' => '建物',
+        ]);
+
+        // /mylist にアクセス
         $response = $this->actingAs($user)->get('/mylist');
 
+        // SOLD が表示されることを確認
         $response->assertStatus(200);
         $response->assertSee('SOLD');
     }
+
+
 
 
     /** @test */
