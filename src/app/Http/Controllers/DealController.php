@@ -36,7 +36,11 @@ class DealController extends Controller
             'product_id' => $validated['product_id'],
             'user_id' => auth()->id(),
             'payment' => $validated['payment'],
+            'postcode' => auth()->user()->postcode,
+            'address' => auth()->user()->address,
+            'building' => auth()->user()->building,
         ]);
+
 
         return redirect()->route('products');
     }
