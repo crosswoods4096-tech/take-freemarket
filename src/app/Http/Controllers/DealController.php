@@ -42,7 +42,7 @@ class DealController extends Controller
         ]);
 
 
-        return redirect()->route('products');
+        return redirect()->route('products.index');
     }
 
 

@@ -77,15 +77,15 @@
             @csrf
 
             <input type="hidden" name="product_id" value="{{ $product->id }}">
-            <!-- <input type="hidden" name="payment" id="paymentInput" value=""> -->
+            <input type="hidden" name="payment" id="paymentInput" value="">
 
-            <!-- ★ バリデーションエラー表示 -->
             @error('payment')
             <p class="text-red-500 text-sm">{{ $message }}</p>
             @enderror
 
             <button class="buy-button w-full">購入する</button>
         </form>
+
 
 
 
@@ -98,14 +98,15 @@
     const paymentInput = document.getElementById('paymentInput');
 
     function updatePayment(value) {
-        paymentDisplay.textContent = value;
+        paymentDisplay.textContent = this.value;
         paymentDisplay.classList.remove('text-gray-400');
-        paymentInput.value = value;
+        paymentInput.value = this.value;
     }
 
     paymentSelectLeft.addEventListener('change', function() {
         paymentDisplay.textContent = this.value;
         paymentDisplay.classList.remove('text-gray-400');
+        paymentInput.value = this.value;
     });
 </script>
 @endsection
