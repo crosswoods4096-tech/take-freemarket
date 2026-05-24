@@ -72,9 +72,6 @@ CREATE DATABASE demo_test;
 
 コマンドでdemo_testというテスト用データベースを作成します。
 
-configファイルの変更
-
-次にconfigディレクトリの中のdatabase.phpを開きmysqlの配列部分をコピーしmysql_testを作成し、項目のうち、databaseをdemo_testに、usernameとpasswordをそれぞれrootに変更します。
 
 テスト用.envファイルの作成
 
