@@ -3,7 +3,7 @@ take-freemarket
 ## 環境構築
 リポジトリからダウンロード
 ```
-git clone git@github.com:crosswoods4096-tech/take-kadai2.git
+git clone git@github.com:crosswoods4096-tech/take-freemarket.git
 ```
 srcディレクトリの「.env.example」をコピーして「.env」を作成し、DBの設定を変更
 ```
@@ -47,10 +47,13 @@ storageディレクトリの書き込み権限を設定
 chmod -R 777 storage
 ```
 ## 開発環境
-・商品一覧画面：http://localhost/products
+
+・ユーザー登録画面：http://localhost/register  
+・ログイン画面：http://localhost/login  
+・フリマアプリトップ画面：http://localhost/
 
 ## ER図
-![ER図](ER.drawio.png)
+![ER図](ER2.drawio.png)
 
 
 
@@ -59,7 +62,7 @@ chmod -R 777 storage
 
 ```
 mysql -u root -p
-```　
+```
 
 コマンドでルート権限でmysqlにログインし、
 
