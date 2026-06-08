@@ -12,16 +12,20 @@ $purchasedProducts = $purchasedProducts ?? collect();
 
     {{-- タブ --}}
     <div class="d-flex gap-4 mb-3">
-        <a href="{{ route('products.recommend') }}"
-            class="tab-link {{ request()->routeIs('products.recommend') ? 'active' : '' }}">
+
+        {{-- おすすめタブ --}}
+        <a href="{{ route('products.index', ['tab' => 'recommend']) }}"
+            class="tab-link {{ request('tab') === 'recommend' ? 'active' : '' }}">
             おすすめ
         </a>
 
+        {{-- マイリストタブ --}}
         <a href="{{ route('products.mylist') }}"
             class="tab-link {{ request()->routeIs('products.mylist') ? 'active' : '' }}">
             マイリスト
         </a>
     </div>
+
 
     {{-- いいねした商品 --}}
     <h2>いいねした商品</h2>

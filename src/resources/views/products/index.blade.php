@@ -10,14 +10,20 @@
       タブ切り替え（おすすめ / マイリスト）
 =========================== --}}
 <div class="d-flex gap-4 mb-3">
-    <a href="{{ route('products.index', ['tab' => 'recommend']) }}">おすすめ</a>
 
+    {{-- おすすめタブ --}}
+    <a href="{{ route('products.index', ['tab' => 'recommend']) }}"
+        class="tab-link {{ request('tab') === 'recommend' ? 'active' : '' }}">
+        おすすめ
+    </a>
 
+    {{-- マイリストタブ --}}
     <a href="{{ route('products.mylist') }}"
         class="tab-link {{ request()->routeIs('products.mylist') ? 'active' : '' }}">
         マイリスト
     </a>
 </div>
+
 
 <div class="tab-underline"></div>
 

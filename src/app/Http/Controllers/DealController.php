@@ -33,12 +33,12 @@ class DealController extends Controller
         $validated = $request->validated();
 
         Deal::create([
-            'product_id' => $validated['product_id'],
+            'product_id' => $product->id,
             'user_id' => auth()->id(),
             'payment' => $validated['payment'],
-            'postcode' => auth()->user()->postcode,
-            'address' => auth()->user()->address,
-            'building' => auth()->user()->building,
+            'postcode' => $validated['postcode'],
+            'address' => $validated['address'],
+            'building' => $validated['building'],
         ]);
 
 

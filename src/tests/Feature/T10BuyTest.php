@@ -28,7 +28,7 @@ class T10BuyTest extends TestCase
             'name' => $name,
             'description' => '説明文',
             'price' => 1000,
-            'condition' => '新品',
+            'condition' => '1',
             'image_path' => 'test.jpg',
         ]);
     }
@@ -50,7 +50,7 @@ class T10BuyTest extends TestCase
         $this->assertDatabaseHas('deals', [
             'user_id' => $user->id,
             'product_id' => $product->id,
-            
+
         ]);
 
         $response->assertRedirect('/products');
@@ -82,9 +82,14 @@ class T10BuyTest extends TestCase
     {
         $user = $this->createUser();
         $product = $this->createProduct($user, '購入商品テスト');
+        $deal = [
+            'payment' => 1,
+            'postcode' => '111-1111',
+            'address' => 'Tokyo'
 
+        ];
         // 購入処理
-        $this->actingAs($user)->post('/deal/' . $product->id);
+        $this->actingAs($user)->post('/deal/' . $product->id, $deal);
 
         // プロフィールの購入商品一覧へアクセス
         $response = $this->actingAs($user)->get('/profile/purchased');

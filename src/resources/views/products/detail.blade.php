@@ -45,14 +45,14 @@
 
                             </button>
                         </form>
-                        <div class="icon-count">{{ $product->likes_count }}</div>
+                        <div class="icon-count">{{ $product->likes->count() }}</div>
                     </div>
                     <div class="icon-block">
                         {{-- コメントを見るリンク（画像版） --}}
                         <a href="#comment-list" class="comment-view-link">
                             <img src="{{ asset('images/comment.png') }}" class="comment-view-icon">
                         </a>
-                        <div class="icon-count">{{ $product->comments_count }}</div>
+                        <div class="icon-count">{{ $product->comments->count() }}</div>
                     </div>
                 </div>
             </div>

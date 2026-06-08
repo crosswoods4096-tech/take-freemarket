@@ -21,6 +21,7 @@ class CreateDealsTable extends Migration
                 ->constrained('users')
                 ->onDelete('cascade');
 
+            $table->integer('payment');   // 支払方法
             $table->string('postcode');   // 郵便番号
             $table->string('address');    // 住所
             $table->string('building');   // 建物名

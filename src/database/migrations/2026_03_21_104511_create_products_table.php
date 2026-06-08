@@ -15,6 +15,8 @@ class CreateProductsTable extends Migration
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
+            //タブ
+            $table->boolean('is_recommend')->default(false);
 
             // 商品情報
             $table->string('name');
@@ -29,6 +31,11 @@ class CreateProductsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::table(
+            'products',
+            function (Blueprint $table) {
+                $table->dropColumn('is_recommend');
+            }
+        );
     }
 }

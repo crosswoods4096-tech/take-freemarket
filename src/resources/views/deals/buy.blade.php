@@ -75,15 +75,16 @@
 
         <form action="{{ route('deal.store', $product->id) }}" method="POST">
             @csrf
-
-            <input type="hidden" name="product_id" value="{{ $product->id }}">
             <input type="hidden" name="payment" id="paymentInput" value="">
+            <input type="hidden" name="postcode" value="{{ $user->postcode }}">
+            <input type="hidden" name="address" value="{{ $user->address }}">
+            <input type="hidden" name="building" value="{{ $user->building }}">
 
             @error('payment')
             <p class="text-red-500 text-sm">{{ $message }}</p>
             @enderror
 
-            <button class="buy-button w-full">購入する</button>
+            <button type="submit" class="buy-button w-full">購入する</button>
         </form>
 
 

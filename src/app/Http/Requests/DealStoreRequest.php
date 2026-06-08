@@ -14,8 +14,11 @@ class DealStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_id' => ['required', 'integer'],
+
             'payment' => ['required'],
+            'postcode' => ['required'],
+            'address' => ['required'],
+            'building' => ['string'],
         ];
     }
 
