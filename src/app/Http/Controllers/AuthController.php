@@ -23,11 +23,13 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
+        // ★ 会員登録後に認証メールを送信
+        $user->sendEmailVerificationNotification();
         // ★ 登録後に自動ログイン
         Auth::login($user);
 
-        // ★ プロフィール編集画面へ遷移
-        return redirect()->route('register.profile');
+        // 認証誘導画面へリダイレクト
+        return redirect()->route('verification.notice');
     }
 
     // ログイン処理
