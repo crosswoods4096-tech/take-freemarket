@@ -10,7 +10,7 @@
         </h2>
 
         {{-- 入力フォーム --}}
-        <form action="{{ route('register.post') }}" method="POST">
+        <form action="/register" method="POST">
             @csrf
 
             {{-- ユーザー名 --}}

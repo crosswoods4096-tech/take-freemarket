@@ -16,7 +16,7 @@
 
         {{-- 認証はこちらからボタン --}}
         <div class="d-grid mb-3">
-            <a href="https://mailhog.local" class="btn btn-primary py-2">
+            <a href="http://localhost:8025/" class="btn btn-primary py-2">
                 認証はこちらから
             </a>
         </div>

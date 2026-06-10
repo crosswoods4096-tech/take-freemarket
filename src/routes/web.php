@@ -6,7 +6,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MyListController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -76,7 +75,7 @@ Route::get('/profile/purchased', [DealController::class, 'purchased'])
 // マイページ関連
 // ===============================
 // マイページ（トップ）
-Route::get('/mypage', [MyPageController::class, 'index'])
+Route::get('/mypage', [MypageController::class, 'index'])
     ->middleware('auth')
     ->name('mypage');
 
@@ -100,54 +99,30 @@ Route::post('/products/{product}/comments', [CommentController::class, 'store'])
 
 
 
-// ===============================
-// 会員登録機能
-// ===============================
-
-// 会員登録画面
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
-Route::post('/register', [AuthController::class, 'store'])->name('register.post');
 
 // 登録直後のプロフィール入力画面
 Route::get('/register/profile', [MypageController::class, 'registerProfile'])
     ->name('register.profile')
     ->middleware('auth');
 
-// ===============================
-// ログイン機能
-// ===============================
-
-// ログイン画面
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
-// ログイン処理
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-// ログアウト処理
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ===============================
 // いいね機能
 // ===============================
 
-// いいね登録・解除（POST）
+
 Route::middleware('auth')->group(
     function () {
+        // いいね登録
         Route::post('/products/{product}/like', [LikeController::class, 'toggle'])
             ->name('like.toggle');
-    }
-);
-// いいね解除（DELETE）
-Route::middleware('auth')->group(
-    function () {
+        //いいね解除
         Route::delete('/products/{product}/like', [LikeController::class, 'destroy'])
             ->name('like.destroy');
     }
 );
+
+
 
 // ===============================
 // 検索機能
@@ -159,7 +134,7 @@ Route::get('/search', [ProductController::class, 'search'])->name('products.sear
 // ===============================
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect()->route('register.profile');
     });
 });
 
@@ -171,7 +146,9 @@ Route::get('/email/verify', function () {
 // 認証リンククリック後の処理
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/dashboard');
+
+    // route()関数を使って、名前付きルートを指定する
+    return redirect()->route('register.profile');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 // 認証メール再送

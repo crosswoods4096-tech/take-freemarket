@@ -10,7 +10,7 @@
         </h2>
 
         {{-- 入力フォーム --}}
-        <form action="{{ route('login.post') }}" method="POST" novalidate>
+        <form action="/login" method="POST" novalidate>
             @csrf
 
             {{-- メールアドレス --}}
