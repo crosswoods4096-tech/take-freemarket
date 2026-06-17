@@ -15,10 +15,10 @@ class DealStoreRequest extends FormRequest
     {
         return [
 
-            'payment' => ['required'],
+            'payment'  => ['required'],
             'postcode' => ['required'],
             'address' => ['required'],
-            'building' => ['string'],
+            'building' => ['nullable', 'string'],
         ];
     }
 
@@ -26,6 +26,9 @@ class DealStoreRequest extends FormRequest
     {
         return [
             'payment.required' => '支払方法を選択してください。',
+            'postcode.required' => '郵便番号を入力してください。',
+            'address.required' => '住所を入力してください。',
+
         ];
     }
 }

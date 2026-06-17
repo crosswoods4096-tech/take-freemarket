@@ -33,8 +33,8 @@
 
         <select id="paymentSelect" name="payment" class="w-60 border border-gray-300 rounded-lg p-2">
             <option value="" selected disabled>選択してください</option>
-            <option value="コンビニ払い">コンビニ払い</option>
-            <option value="カード支払い">カード支払い</option>
+            <option value="1">コンビニ払い</option>
+            <option value="2">カード支払い</option>
         </select>
 
         <hr class="my-6 border-gray-300">
@@ -98,15 +98,15 @@
     const paymentDisplay = document.getElementById('paymentDisplay');
     const paymentInput = document.getElementById('paymentInput');
 
-    function updatePayment(value) {
-        paymentDisplay.textContent = this.value;
-        paymentDisplay.classList.remove('text-gray-400');
-        paymentInput.value = this.value;
-    }
-
     paymentSelectLeft.addEventListener('change', function() {
-        paymentDisplay.textContent = this.value;
+        // 選択された <option> のテキスト（例: "コンビニ払い"）を取得
+        const selectedText = this.options[this.selectedIndex].text;
+
+        // 右側の見た目は文字（"コンビニ払い"）にする
+        paymentDisplay.textContent = selectedText;
         paymentDisplay.classList.remove('text-gray-400');
+
+        // 実際にフォームで送信する隠しデ―タには数字（"1" または "2"）を入れる
         paymentInput.value = this.value;
     });
 </script>

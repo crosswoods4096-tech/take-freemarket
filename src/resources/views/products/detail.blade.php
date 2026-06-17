@@ -59,7 +59,7 @@
 
 
             @if(!$product->is_sold)
-            <a href="{{ route('deal.index', $product->id) }}" class="purchase-btn">
+            <a href="{{ route('deal.buy', $product->id) }}" class="purchase-btn">
 
                 購入手続きへ
             </a>

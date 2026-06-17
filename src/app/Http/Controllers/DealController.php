@@ -10,37 +10,41 @@ use App\Http\Requests\DealStoreRequest;
 
 class DealController extends Controller
 {
-    public function index($id)
+    /**
+     * 購入確認画面を表示（buyに一本化したため index メソッドは削除）
+     */
+    public function buy(Product $product)
     {
-        $product = Product::findOrFail($id);
-        $user = auth()->user();
-
-        return view('deals.buy', compact('product', 'user'));
+        return view('deals.buy', [
+            'product' => $product,
+            'user'    => auth()->user(), // ユーザー情報も一緒に渡す
+            'payment' => session('payment', '選択してください'),
+        ]);
     }
-
     /**
      * 購入処理
      */
-
-
-
-
     public function store(DealStoreRequest $request, Product $product)
     {
+        // 【重要】売切商品の二重購入を防ぐチェック
+        if ($product->deal()->exists()) {
+            return redirect()->back()->with('error', 'この商品はすでに売り切れです。');
+        }
+
+
         // バリデーション済みの値
-
-
         $validated = $request->validated();
 
         Deal::create([
             'product_id' => $product->id,
             'user_id' => auth()->id(),
-            'payment' => $validated['payment'],
+            'payment' => $request->payment,
             'postcode' => $validated['postcode'],
             'address' => $validated['address'],
             'building' => $validated['building'],
         ]);
-
+        // 購入後、セッションの支払い情報をクリア
+        session()->forget('payment');
 
         return redirect()->route('products.index');
     }
@@ -62,16 +66,6 @@ class DealController extends Controller
         return view('mypage', compact('purchasedProducts'));
     }
     /**
-     * 支払方法選択画面を表示
-     */
-    public function buy(Product $product)
-    {
-        return view('deals.buy', [
-            'product' => $product,
-            'payment' => session('payment', '選択してください'),
-        ]);
-    }
-    /**
      * 支払方法を更新
      */
     public function updatePayment(Request $request, Product $product)
@@ -84,7 +78,7 @@ class DealController extends Controller
         // セッションに保存（DB 保存ではない）
         session(['payment' => $request->payment]);
 
-        return redirect('/buy/' . $product->id);
+        return redirect()->route('deal.buy', $product->id);
     }
     public function editAddress($id)
     {
@@ -116,7 +110,7 @@ class DealController extends Controller
         ]);
 
         // 購入確認画面に戻る
-        return redirect()->route('deal.index', $id)
+        return redirect()->route('deal.buy', $id)
             ->with('success', '住所を更新しました。');
     }
 }
