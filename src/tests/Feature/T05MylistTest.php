@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Like;
 use App\Models\Product;
-use App\Models\User;
+
 
 
 
@@ -53,14 +53,10 @@ class T05MyListTest extends TestCase
 
     public function test_購入済み商品には_soldと表示される()
     {
-        // ユーザー作成
-        $user = \App\Models\User::create([
-            'name' => 'テストユーザー',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
+        // 1. ユーザー作成を factory の形に変更（これで確実にメール認証が突破できます）
+        $user = \App\Models\User::factory()->create();
 
-        // 商品作成（sold_flag は使わない）
+        // 商品作成（出品者は上記で作った認証済みユーザー）
         $product = \App\Models\Product::create([
             'name' => 'メロン',
             'price' => 1000,
@@ -70,24 +66,29 @@ class T05MyListTest extends TestCase
             'condition' => '良好',
         ]);
 
-        // Deal を作成（これが SOLD の根拠）
+        // マイリストに表示させるために「いいね」データを作る
+        \App\Models\Like::create([
+            'user_id' => $user->id,
+            'product_id' => $product->id,
+        ]);
+
+        // Deal を作成（SOLD の根拠）
         \App\Models\Deal::create([
             'user_id' => $user->id,
             'product_id' => $product->id,
             'postcode' => '111-1111',
             'address' => '住所',
             'building' => '建物',
+            'payment' => 2,
         ]);
 
         // /mylist にアクセス
         $response = $this->actingAs($user)->get('/mylist');
 
-        // SOLD が表示されることを確認
+        // SOLD が表示されることを確認（302ではなく200になるはずです！）
         $response->assertStatus(200);
         $response->assertSee('SOLD');
     }
-
-
 
 
     /** @test */

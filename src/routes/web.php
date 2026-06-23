@@ -7,6 +7,7 @@ use App\Http\Controllers\DealController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MyListController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -64,6 +65,9 @@ Route::middleware(['auth', 'verified'])->group(
 
         // 購入者データ獲得
         Route::get('/profile/purchased', [DealController::class, 'purchased']);
+        // 購入成功したときの処理
+        Route::get('/deal/success', [DealController::class, 'success'])->name('deal.success');
+        Route::get('/deal/cancel', [DealController::class, 'cancel'])->name('deal.cancel');
         // ===============================
         // マイページ関連
         // ===============================
@@ -134,3 +138,9 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', '認証メールを再送しました');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+//オリジナルのバリデーションを働かせるためのルート設定（登録）
+Route::post('/register', [AuthController::class, 'store']);
+//オリジナルのバリデーションとログイン処理を働かせるルート設定
+Route::post('/login', [AuthController::class, 'login']);
+// ログアウト処理を働かせるルート設定
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

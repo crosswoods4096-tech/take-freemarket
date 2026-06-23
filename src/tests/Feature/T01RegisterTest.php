@@ -99,7 +99,7 @@ class T01RegisterTest extends TestCase
         ]);
 
         // プロフィール入力画面へリダイレクトされることを確認
-        $response->assertRedirect('/register/profile');
+        $response->assertRedirect(route('verification.notice'));
         // 例：登録後にプロフィール入力画面へ飛ばす場合
     }
 }
