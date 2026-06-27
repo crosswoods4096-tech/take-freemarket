@@ -47,7 +47,10 @@ Route::middleware(['auth', 'verified'])->group(
         // ===============================
         // Deal 購入フロー（完了画面なし）
         // ===============================
-
+        // 購入成功したときの処理
+        Route::get('/deal/success', [DealController::class, 'success'])->name('deal.success');
+        // 購入失敗したときの処理
+        Route::get('/deal/cancel', [DealController::class, 'cancel'])->name('deal.cancel');
         // 購入確認画面（index から buy メソッドに変更し、ルート名も deal.buy に変更）
         Route::get('/deal/{product}', [DealController::class, 'buy'])->name('deal.buy');
 
@@ -65,9 +68,7 @@ Route::middleware(['auth', 'verified'])->group(
 
         // 購入者データ獲得
         Route::get('/profile/purchased', [DealController::class, 'purchased']);
-        // 購入成功したときの処理
-        Route::get('/deal/success', [DealController::class, 'success'])->name('deal.success');
-        Route::get('/deal/cancel', [DealController::class, 'cancel'])->name('deal.cancel');
+
         // ===============================
         // マイページ関連
         // ===============================
